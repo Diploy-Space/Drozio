@@ -1,0 +1,62 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Archive files (>100MB CodeCanyon zips)
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Laravel Backend (Admin and web)
+Admin and web/vendor/
+Admin and web/node_modules/
+Admin and web/.env
+Admin and web/.env.backup
+Admin and web/storage/*.key
+Admin and web/storage/app/*
+!Admin and web/storage/app/.gitignore
+Admin and web/storage/framework/cache/*
+!Admin and web/storage/framework/cache/.gitignore
+Admin and web/storage/framework/sessions/*
+!Admin and web/storage/framework/sessions/.gitignore
+Admin and web/storage/framework/views/*
+!Admin and web/storage/framework/views/.gitignore
+Admin and web/storage/logs/*
+!Admin and web/storage/logs/.gitignore
+Admin and web/public/storage
+Admin and web/public/hot
+Admin and web/.phpunit.result.cache
+Admin and web/temp-data-folder/
+
+# Flutter & Mobile Apps (User app & Vendor app)
+**/.dart_tool/
+**/build/
+**/.pub-cache/
+**/.pub/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/doc/api/
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/android/app/.cxx/
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+*.keystore
+
+# IDE and Editor files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.history/
