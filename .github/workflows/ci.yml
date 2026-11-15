@@ -1,0 +1,62 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  analyze-user-app:
+    name: Analyze User App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install User App Dependencies
+        working-directory: User app
+        run: flutter pub get
+
+      - name: Run Static Analysis on User App
+        working-directory: User app
+        run: dart analyze --fatal-infos
+
+  analyze-vendor-app:
+    name: Analyze Vendor App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Vendor App Dependencies
+        working-directory: Vendor app
+        run: flutter pub get
+
+      - name: Run Static Analysis on Vendor App
+        working-directory: Vendor app
+        run: dart analyze --fatal-infos
