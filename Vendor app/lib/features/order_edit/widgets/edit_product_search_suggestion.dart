@@ -5,7 +5,7 @@ import 'package:sixvalley_vendor_app/common/basewidgets/custom_image_widget.dart
 import 'package:sixvalley_vendor_app/common/basewidgets/custom_loader_widget.dart';
 import 'package:sixvalley_vendor_app/common/basewidgets/custom_snackbar_widget.dart';
 import 'package:sixvalley_vendor_app/features/order_edit/controllers/order_edit_controller.dart';
-import 'package:sixvalley_vendor_app/features/order_edit/widgets/edit%20_product_bottomsheet.dart';
+import 'package:sixvalley_vendor_app/features/order_edit/widgets/edit_product_bottomsheet.dart';
 import 'package:sixvalley_vendor_app/features/product/domain/models/product_model.dart';
 import 'package:sixvalley_vendor_app/features/profile/controllers/profile_controller.dart';
 import 'package:sixvalley_vendor_app/helper/price_converter.dart';

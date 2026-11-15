@@ -28,7 +28,6 @@ class _AuctionHomeScreenState extends State<AuctionHomeScreen> with TickerProvid
   final ScrollController _scrollController = ScrollController();
   TabController? _tabController;
   final Map<int, double> _tabScrollOffsets = {};
-  bool _isViewAllTabSwitch = false;
 
   @override
   void initState() {
@@ -73,10 +72,6 @@ class _AuctionHomeScreenState extends State<AuctionHomeScreen> with TickerProvid
 
       _tabController!.addListener(() {
         if (_tabController!.indexIsChanging) {
-          _isViewAllTabSwitch = true;
-          Future.delayed(const Duration(milliseconds: 400), () {
-            if (mounted) setState(() => _isViewAllTabSwitch = false);
-          });
           final previousKey = _scrollKeyForTab(_tabController!.previousIndex);
           final incomingKey = _scrollKeyForTab(_tabController!.index);
           _tabScrollOffsets[previousKey] = _scrollController.offset;
@@ -89,11 +84,7 @@ class _AuctionHomeScreenState extends State<AuctionHomeScreen> with TickerProvid
   }
 
   void _animateToTab(int index) {
-    _isViewAllTabSwitch = true;
     _tabController?.animateTo(index);
-    Future.delayed(const Duration(milliseconds: 400), () {
-      if (mounted) setState(() => _isViewAllTabSwitch = false);
-    });
   }
 
   @override
@@ -284,7 +275,7 @@ class _SliverSearchBarDelegate extends SliverPersistentHeaderDelegate {
   final Widget child;
   final double height;
 
-  const _SliverSearchBarDelegate({required this.child, this.height = 75});
+  const _SliverSearchBarDelegate({required this.child}) : height = 75;
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) => child;

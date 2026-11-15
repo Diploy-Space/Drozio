@@ -28,40 +28,6 @@ class _OrderWidgetState extends State<OrderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    double orderAmount = 0;
-
-    if(widget.orderModel.orderType == 'POS') {
-      double itemsPrice = 0;
-      double discount = 0;
-      double? eeDiscount = 0;
-      double tax = 0;
-      double coupon = 0;
-      double shipping = 0;
-      if (widget.orderModel.orderDetails != null && widget.orderModel.orderDetails!.isNotEmpty ) {
-        coupon = widget.orderModel.discountAmount!;
-        shipping = widget.orderModel.shippingCost!;
-        for (var orderDetails in widget.orderModel.orderDetails!) {
-          if(orderDetails.productDetails?.productType == "physical"){
-          }
-          itemsPrice = itemsPrice + (orderDetails.price! * orderDetails.qty!);
-          discount = discount + orderDetails.discount!;
-          tax = tax + orderDetails.tax!;
-
-        }
-        if(widget.orderModel.orderType == 'POS'){
-          if(widget.orderModel.extraDiscountType == 'percent'){
-            eeDiscount = itemsPrice * (widget.orderModel.extraDiscount!/100);
-          }else{
-            eeDiscount = widget.orderModel.extraDiscount;
-          }
-        }
-      }
-      double subTotal = itemsPrice +tax - discount;
-
-      orderAmount = subTotal + shipping - coupon - eeDiscount!;
-
-    }
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeMedium),
       child: Column( crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -173,7 +139,7 @@ class _OrderWidgetState extends State<OrderWidget> {
                           ],),
 
                           Text(
-                            PriceConverter.convertPrice(context,  widget.orderModel.orderType == 'POS' ? widget.orderModel.orderAmount : widget.orderModel.orderAmount ?? 0),
+                            PriceConverter.convertPrice(context, widget.orderModel.orderAmount ?? 0),
                             style: robotoMedium.copyWith(color: Theme.of(context).primaryColor)
                           ),
 

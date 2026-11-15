@@ -195,14 +195,12 @@ class ClearanceSaleController extends ChangeNotifier {
     ApiResponse apiResponse = await chatServiceInterface.getSellerProductList(sellerId, offset,languageCode, search);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       if(offset == 1) {
-        print("----getSearchProductList---001--");
         _sellerProductModel = ProductModel.fromJson(apiResponse.response!.data, fromGetProducts: true);
       } else {
         _sellerProductModel!.products!.addAll(ProductModel.fromJson(apiResponse.response!.data, fromGetProducts: true).products??[],);
         _sellerProductModel!.offset = ProductModel.fromJson(apiResponse.response!.data).offset;
         _sellerProductModel!.totalSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
       }
-      print("----getSearchProductList----${_sellerProductModel?.products?.length}");
     } else {
       ApiChecker.checkApi(apiResponse);
     }

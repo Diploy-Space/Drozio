@@ -531,62 +531,6 @@ class _ProductFilterBottomSheetState extends State<ProductFilterBottomSheet> {
   }
 }
 
-
-class _StatusFilterWidget extends StatelessWidget {
-  final int selectedIndex;
-  final Function(int index) onFilterChanged;
-
-  const _StatusFilterWidget({required this.selectedIndex, required this.onFilterChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    // Labels matching your controller logic (All, Active, Inactive)
-    final List<String> filterList = ['all', 'active', 'inactive'];
-
-    return SizedBox(
-      height: 40,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: filterList.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          bool isSelected = selectedIndex == index;
-
-          return Padding(
-            padding: const EdgeInsets.only(right: Dimensions.paddingSizeSmall),
-            child: InkWell(
-              onTap: () => onFilterChanged(index),
-              borderRadius: BorderRadius.circular(50),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? Theme.of(context).primaryColor
-                      : const Color(0xFFF4F5F7), // Light grey for unselected
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  getTranslated(filterList[index], context) ?? filterList[index],
-                  style: isSelected
-                      ? robotoBold.copyWith(
-                      color: Colors.white,
-                      fontSize: Dimensions.fontSizeDefault
-                  )
-                      : robotoRegular.copyWith(
-                      color: Theme.of(context).textTheme.bodyLarge?.color?.withValues(alpha: 0.7),
-                      fontSize: Dimensions.fontSizeDefault
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
 class CheckboxItemWidget extends StatelessWidget {
   final String? title;
   final bool checked;
@@ -840,7 +784,7 @@ class ViewMoreWidget extends StatelessWidget {
   final bool isMore;
   final bool isActive;
   final String count;
-  const ViewMoreWidget({required this.onTap, required this.isMore, required this.isActive, required this.count});
+  const ViewMoreWidget({super.key, required this.onTap, required this.isMore, required this.isActive, required this.count});
 
   @override
   Widget build(BuildContext context) {
@@ -919,14 +863,16 @@ class _ButtonWidgetState extends State<_ButtonWidget> {
   Future<void> _clearFilter(BuildContext context, ProductController productController) async {
     if(_isClearing) return;
     setState(() => _isClearing = true);
+    final splashController = Provider.of<SplashController>(context, listen: false);
+    final profileController = Provider.of<ProfileController>(context, listen: false);
     await productController.getSellerProductList(
-      '${Provider.of<ProfileController>(context, listen: false).userId}',
+      '${profileController.userId}',
       productController.sellerProductModel?.offset ?? 1, 'en',
       productController.sellerProductModel?.search ?? '',
       filterSearchModel: FilterModel(isUpdate: true),
     );
     productController.clearFilterData();
-    productController.setPriceRange(0, Provider.of<SplashController>(context, listen: false).configModel?.productMaxPriceRange ?? 0);
+    productController.setPriceRange(0, splashController.configModel?.productMaxPriceRange ?? 0);
     productController.setFilterSortIndex(0);
     productController.setFilterIsActive(false);
     if(mounted) setState(() => _isClearing = false);
@@ -1011,21 +957,6 @@ class _ButtonWidgetState extends State<_ButtonWidget> {
     return (minPrice: min, maxPrice: max);
   }
 
-  bool _canResetFilters(BuildContext context) {
-    final productController = Provider.of<ProductController>(context, listen: false);
-    return (productController.sellerProductModel?.brandIds?.isNotEmpty ?? false) ||
-        (productController.sellerProductModel?.categoryIds?.isNotEmpty ?? false) ||
-        (productController.sellerProductModel?.authorIds?.isNotEmpty ?? false) ||
-        (productController.sellerProductModel?.publishHouseIds?.isNotEmpty ?? false) ||
-        productController.sellerProductModel?.productType != null ||
-        productController.sellerProductModel?.startDate != null ||
-        productController.sellerProductModel?.endDate != null ||
-        productController.sellerProductModel?.maxPrice != null ||
-        productController.sellerProductModel?.minPrice != null ||
-        productController.filterIsActive != null ||
-        productController.filterSortIndex != 0;
-  }
-
   List<int> _getSelectedCategoryIds(BuildContext context) {
     return (Provider.of<CategoryController>(context, listen: false).categoryList ?? [])
       .where((category) => category.checked ?? false)
@@ -1079,18 +1010,20 @@ class _ButtonWidgetState extends State<_ButtonWidget> {
 
     if (!productController.isPriceRangeValid) return false;
 
-
-    bool _areListsEqual(List<int>? list1, List<int>? list2) {
-      if (list1 == null && list2 == null) return true;
-      if (list1 == null || list2 == null) return false;
-      if (list1.length != list2.length) return false;
-      return Set.from(list1).containsAll(list2) && Set.from(list2).containsAll(list1);
+    bool areProductTypesEqual(ProductTypeEnum? currentType, List<String>? filterTypes) {
+      if (currentType == null) {
+        return filterTypes == null || filterTypes.isEmpty;
+      }
+      if (filterTypes == null || filterTypes.isEmpty) {
+        return false;
+      }
+      return filterTypes.length == 1 && filterTypes.first == currentType.name;
     }
     return
 
       // productController.endDate != productModel.endDate ||
       //   productController.startDate != productModel.startDate ||
-       productController.sellerProductModel?.productType?.name !=  productController.filterModel.productType ||
+       !areProductTypesEqual(productController.sellerProductModel?.productType, productController.filterModel.productType) ||
       //   productController.minPrice != productModel.minPrice ||
       //   (productController.maxPrice != productModel.maxPrice && productModel.maxPrice != null) ||
 

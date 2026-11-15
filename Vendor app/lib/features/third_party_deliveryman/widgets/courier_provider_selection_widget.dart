@@ -236,14 +236,22 @@ class _CourierProviderSelectionWidgetState extends State<CourierProviderSelectio
               )),
               const SizedBox(height: Dimensions.paddingSizeSmall),
 
-              for (int i = 0; i < controller.enabledProviders.length; i++) ...[
-                if (i != 0) const SizedBox(height: Dimensions.paddingSizeSmall),
-                _ProviderRadioTile(
-                  controller: controller,
-                  provider: controller.enabledProviders[i],
-                  labelStyle: titilliumRegular.copyWith(color: Theme.of(context).textTheme.bodyLarge?.color),
+              RadioGroup<String>(
+                groupValue: controller.selectedProviderId,
+                onChanged: (value) => controller.selectProvider(value),
+                child: Column(
+                  children: [
+                    for (int i = 0; i < controller.enabledProviders.length; i++) ...[
+                      if (i != 0) const SizedBox(height: Dimensions.paddingSizeSmall),
+                      _ProviderRadioTile(
+                        controller: controller,
+                        provider: controller.enabledProviders[i],
+                        labelStyle: titilliumRegular.copyWith(color: Theme.of(context).textTheme.bodyLarge?.color),
+                      ),
+                    ],
+                  ],
                 ),
-              ],
+              ),
 
               if (controller.selectedProviderId != null) ...[
                 const SizedBox(height: Dimensions.paddingSizeSmall),
@@ -294,9 +302,7 @@ class _ProviderRadioTile extends StatelessWidget {
             Text(provider.label ?? '', style: labelStyle),
             Radio<String>(
               value: provider.id ?? '',
-              groupValue: controller.selectedProviderId,
               activeColor: Theme.of(context).primaryColor,
-              onChanged: (value) => controller.selectProvider(value),
             ),
           ],
         ),

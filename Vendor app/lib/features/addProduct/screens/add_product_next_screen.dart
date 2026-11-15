@@ -29,7 +29,6 @@ import 'package:sixvalley_vendor_app/features/splash/domain/models/config_model.
 import 'package:sixvalley_vendor_app/helper/color_helper.dart';
 import 'package:sixvalley_vendor_app/helper/price_converter.dart';
 import 'package:sixvalley_vendor_app/localization/language_constrants.dart';
-import 'package:sixvalley_vendor_app/localization/controllers/localization_controller.dart';
 import 'package:sixvalley_vendor_app/features/addProduct/controllers/add_product_controller.dart';
 import 'package:sixvalley_vendor_app/features/splash/controllers/splash_controller.dart';
 import 'package:sixvalley_vendor_app/main.dart';
@@ -89,8 +88,6 @@ class AddProductNextScreenState extends State<AddProductNextScreen> with Automat
 
 
   Future<void> _load() async {
-    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US'?
-    'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
   }
 
 
@@ -634,8 +631,8 @@ class AddProductNextScreenState extends State<AddProductNextScreen> with Automat
 
                                                     Consumer<AiController>(
                                                       builder: (context, aiController, child) {
-                                                        TextEditingController? _autoController;
-                                                        FocusNode? _autoFocusNode;
+                                                        TextEditingController? autoController;
+                                                        FocusNode? autoFocusNode;
 
                                                         return Column(
                                                           children : [
@@ -730,8 +727,8 @@ class AddProductNextScreenState extends State<AddProductNextScreen> with Automat
                                                                 },
 
                                                                 fieldViewBuilder: (context, controller, node, onComplete) {
-                                                                  _autoController ??= controller;
-                                                                  _autoFocusNode ??= node;
+                                                                  autoController ??= controller;
+                                                                  autoFocusNode ??= node;
                                                                   return Container(
                                                                     height: 50,
                                                                     decoration: BoxDecoration(
@@ -766,7 +763,7 @@ class AddProductNextScreenState extends State<AddProductNextScreen> with Automat
                                                                   variationController.addColorCode(colorProvider.colorList![value].code);
 
                                                                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                                                                    _autoFocusNode?.unfocus();
+                                                                    autoFocusNode?.unfocus();
                                                                   });
                                                                 },
                                                               );

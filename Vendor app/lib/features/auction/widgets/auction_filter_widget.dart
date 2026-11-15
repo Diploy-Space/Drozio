@@ -710,10 +710,7 @@ class _SectionContainer extends StatelessWidget {
 class _CheckboxItem extends StatelessWidget {
   final String? title;
   final bool checked;
-  final bool? isStart;
-  final bool? isSubCategory;
-  final bool? isSubSubCategory;
-  final bool? showDropdown;
+  final bool isStart;
   final Function()? onTap;
 
   const _CheckboxItem({
@@ -721,9 +718,6 @@ class _CheckboxItem extends StatelessWidget {
     required this.checked,
     this.onTap,
     this.isStart = false,
-    this.showDropdown = false,
-    this.isSubCategory = false,
-    this.isSubSubCategory = false,
   });
 
   @override
@@ -734,9 +728,9 @@ class _CheckboxItem extends StatelessWidget {
         onTap: onTap,
         child: Row(
           mainAxisAlignment:
-          isStart! ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+          isStart ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
           children: [
-            if (isStart!) ...[
+            if (isStart) ...[
               Container(
                 width: 20,
                 height: 20,
@@ -755,9 +749,6 @@ class _CheckboxItem extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  SizedBox(
-                    width: isSubCategory! ? Dimensions.paddingSizeDefault : isSubSubCategory! ? Dimensions.paddingSizeButton : 0,
-                  ),
                   Flexible(
                     child: Text(title ?? '',
                       style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyLarge?.color),
@@ -765,15 +756,10 @@ class _CheckboxItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  if (showDropdown ?? false)
-                    Icon(checked ? Icons.keyboard_arrow_down_outlined : Icons.keyboard_arrow_right,
-                      size: Dimensions.iconSizeMedium,
-                      color: Theme.of(context).textTheme.headlineMedium?.color,
-                    ),
                 ],
               ),
             ),
-            if (!isStart!)
+            if (!isStart)
               Container(
                 width: 20,
                 height: 20,

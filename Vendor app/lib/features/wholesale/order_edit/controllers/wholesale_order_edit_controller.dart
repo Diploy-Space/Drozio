@@ -78,10 +78,13 @@ class WholesaleOrderEditController extends ChangeNotifier {
   Future<bool> editOrderSubmit(BuildContext context, int? orderId) async {
     _isLoading = true;
     notifyListeners();
+    final message = getTranslated('updated_successfully', context) ?? '';
     await Future.delayed(const Duration(milliseconds: 500));
     _isLoading = false;
     notifyListeners();
-    showCustomSnackBarWidget(getTranslated('updated_successfully', context) ?? '', context, isError: false);
+    if (context.mounted) {
+      showCustomSnackBarWidget(message, context, isError: false);
+    }
     return true;
   }
 }

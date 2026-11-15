@@ -276,6 +276,7 @@ Future<void> facebookLogin(BuildContext context, String? fromPage, VoidCallback?
       token = Provider.of<FacebookLoginController>(Get.context!, listen: false).result.accessToken?.tokenString;
       name = Provider.of<FacebookLoginController>(Get.context!, listen: false).userData?['name'] ?? '';
       medium = 'facebook';
+      socialLogin.name = name;
       socialLogin.email = email;
       socialLogin.medium = medium;
       socialLogin.token = token;

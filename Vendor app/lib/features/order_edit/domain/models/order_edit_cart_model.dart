@@ -4,7 +4,7 @@ class OrderEditCartModel {
   int? _id;
   double? _price;
   double? _discountAmount;
-  int? _quantity;
+  int? quantity;
   double? _taxAmount;
   String? _variant;
   Product? _product;
@@ -17,7 +17,7 @@ class OrderEditCartModel {
       int? id,
       double? price,
       double? discountAmount,
-      int? quantity,
+      this.quantity,
       double? taxAmount,
       String? variant,
       Product? product,
@@ -29,7 +29,6 @@ class OrderEditCartModel {
     _id = id;
     _price = price;
     _discountAmount = discountAmount;
-    _quantity = quantity;
     _taxAmount = taxAmount;
     _variant = variant;
     _product = product;
@@ -42,8 +41,6 @@ class OrderEditCartModel {
   int? get id => _id;
   double? get price => _price;
   double? get discountAmount => _discountAmount;
-  int? get quantity => _quantity;
-  set quantity(int? qty) => _quantity = qty;
   double? get taxAmount => _taxAmount;
   Product? get product => _product;
   String? get variant => _variant;
@@ -58,7 +55,7 @@ class OrderEditCartModel {
     _discountAmount = (json['discount_amount'] != null)
         ? json['discount_amount'].toDouble()
         : null;
-    _quantity = json['quantity'];
+    quantity = json['quantity'];
     _taxAmount =
         (json['tax_amount'] != null) ? double.tryParse(json['tax_amount'].toString()) : null;
     _variant = json['variant'];
@@ -79,7 +76,7 @@ class OrderEditCartModel {
     data['id'] = _id ?? 0;
     data['price'] = _price ?? 0;
     data['discount_amount'] = _discountAmount ?? 0;
-    data['quantity'] = _quantity ?? 0;
+    data['quantity'] = quantity ?? 0;
     data['tax_amount'] = _taxAmount ?? 0;
     data['variant'] = _variant ?? '';
     // Safely handle nested Product

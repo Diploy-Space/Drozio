@@ -482,10 +482,9 @@ class _ShimmerOverlayWrapper extends StatelessWidget {
   const _ShimmerOverlayWrapper({
     required this.child,
     this.isActive = false,
-    this.opacity = 0.3,
     this.baseColor,
     this.highlightColor,
-  });
+  }) : opacity = 0.3;
 
   @override
   Widget build(BuildContext context) {

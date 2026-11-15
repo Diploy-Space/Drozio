@@ -20,8 +20,6 @@ import 'package:sixvalley_vendor_app/data/model/response/base/api_response.dart'
 import 'package:sixvalley_vendor_app/features/delivery_man/domain/services/delivery_service_interface.dart';
 import 'package:sixvalley_vendor_app/features/order/domain/models/order_model.dart';
 import 'package:sixvalley_vendor_app/features/delivery_man/domain/model/top_delivery_man.dart';
-import 'package:sixvalley_vendor_app/features/splash/controllers/splash_controller.dart';
-import 'package:sixvalley_vendor_app/features/splash/domain/models/config_model.dart';
 import 'package:sixvalley_vendor_app/helper/api_checker.dart';
 import 'package:sixvalley_vendor_app/helper/image_size_checker.dart';
 import 'package:sixvalley_vendor_app/localization/language_constrants.dart';
@@ -109,8 +107,6 @@ class DeliveryManController extends ChangeNotifier {
 
 
   void pickImage(bool isProfile, bool isRemove) async {
-    ConfigModel? configModel = Provider.of<SplashController>(Get.context!, listen: false).configModel;
-
     if(isRemove) {
       _profileImage = null;
       _identityImages = [];

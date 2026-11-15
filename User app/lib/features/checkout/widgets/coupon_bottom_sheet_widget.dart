@@ -102,7 +102,7 @@ class _CouponBottomSheetWidgetState extends State<CouponBottomSheetWidget> {
                 child: Text('${getTranslated('available_promo', context)}',
                     style: textBold.copyWith(fontSize: Dimensions.fontSizeLarge))),
 
-              couponProvider.availableCouponList != null? couponProvider.availableCouponList!.isNotEmpty?
+              couponList != null? couponList.isNotEmpty?
               Expanded(child: CustomScrollView(
                 slivers: [
                   SliverPadding(
@@ -111,14 +111,14 @@ class _CouponBottomSheetWidgetState extends State<CouponBottomSheetWidget> {
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
                           return CouponItemWidget(
-                            coupons: couponProvider.availableCouponList![index],
+                            coupons: couponList[index],
                             fromCheckout: true,
                             onCopy: (String? code ) {
                               couponController.text = code ?? '';
                             },
                           );
                         },
-                        childCount: couponProvider.availableCouponList!.length,
+                        childCount: couponList.length,
                       ),
                     ),
                   ),

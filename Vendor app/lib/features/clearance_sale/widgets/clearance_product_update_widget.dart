@@ -25,7 +25,7 @@ class _ClearanceProductUpdateWidgetState extends State<ClearanceProductUpdateWid
   String _discountType = '';
   bool hasVariation = false;
 
-  var result;
+  ({double minPrice, double maxPrice})? result;
 
   @override
   void initState() {
@@ -239,9 +239,9 @@ class _ClearanceProductUpdateWidgetState extends State<ClearanceProductUpdateWid
 
                                if(skuController.text.isEmpty) {
                                  showCustomToast(message: getTranslated('discount_amount_is', context)!, context:  context, isSuccess: false);
-                               } else if (hasVariation && _discountType == 'amount' && PriceConverter.convertAmount(double.tryParse(skuController.text)!, context) < result.minPrice) {
+                               } else if (hasVariation && result != null && _discountType == 'amount' && PriceConverter.convertAmount(double.tryParse(skuController.text)!, context) < result!.minPrice) {
                                  showCustomToast(message: getTranslated('discount_amount_cannot_less_product_price', context)!, context:  context, isSuccess: false);
-                               } else if(hasVariation && _discountType == 'amount' && PriceConverter.convertAmount(double.tryParse(skuController.text)!, context) > result.maxPrice) {
+                               } else if(hasVariation && result != null && _discountType == 'amount' && PriceConverter.convertAmount(double.tryParse(skuController.text)!, context) > result!.maxPrice) {
                                  showCustomToast(message: getTranslated('discount_amount_cannot_grater_then_product_price', context)!, context:  context, isSuccess: false);
                                } else if(!hasVariation && _discountType == 'amount' && PriceConverter.convertAmount(widget.products.product!.unitPrice ?? 0, context) < double.tryParse(skuController.text)!) {
                                  showCustomToast(message: getTranslated('discount_amount_cannot_grater_then_product_price', context)!, context:  context, isSuccess: false);

@@ -14,8 +14,8 @@ class ShopProductViewList extends StatefulWidget {
   final ScrollController scrollController;
   final int sellerId;
   final String slug;
-  SellerNavigationModel? sellerNavigationModel;
-  ShopProductViewList({super.key, required this.scrollController, required this.sellerId, this.sellerNavigationModel, required this.slug});
+  final SellerNavigationModel? sellerNavigationModel;
+  const ShopProductViewList({super.key, required this.scrollController, required this.sellerId, this.sellerNavigationModel, required this.slug});
 
   @override
   State<ShopProductViewList> createState() => _ShopProductViewListState();

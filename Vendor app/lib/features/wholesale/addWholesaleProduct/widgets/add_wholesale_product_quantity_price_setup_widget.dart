@@ -23,10 +23,9 @@ class _AddWholesaleProductQuantityPriceSetupWidgetState extends State<AddWholesa
       builder: (context, controller, _) {
         final tiers = controller.quantityPriceTiers;
 
-        return Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
               InkWell(
                 onTap: () => setState(() => _isExpanded = !_isExpanded),
                 child: Padding(
@@ -94,8 +93,7 @@ class _AddWholesaleProductQuantityPriceSetupWidgetState extends State<AddWholesa
                       ),
               ),
             ],
-          ),
-        );
+          );
       },
     );
   }

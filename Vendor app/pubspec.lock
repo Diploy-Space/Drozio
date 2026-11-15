@@ -950,7 +950,7 @@ packages:
     source: hosted
     version: "2.2.0"
   html:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       name: html
       sha256: bfef906cbd4e78ef49ae511d9074aebd1d2251482ef601a280973e8b58b51bbf
@@ -982,7 +982,7 @@ packages:
     source: hosted
     version: "2.0.7"
   image:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image
       sha256: "8e9d133755c3e84c73288363e6343157c383a0c6c56fc51afcc5d4d7180306d6"

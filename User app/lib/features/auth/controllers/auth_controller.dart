@@ -112,20 +112,17 @@ class AuthController with ChangeNotifier {
       final Map map = ApiEnvelope.content(apiResponse.response!.data);
 
 
-      String? message = '', token = '', temporaryToken= '', email = '', phone = '';
+      String? message = '', token = '', temporaryToken= '', phone = '';
       ProfileModel? profileModel;
       bool isPhoneVerified = false;
-      bool isMailVerified = false;
 
 
       message = map['error_message'] ?? ApiEnvelope.message(apiResponse.response!.data);
       token = map['token'];
       temporaryToken = map['temp_token'] ?? map['temporary_token'];
       if(map["user"] != null) {
-        email = map["user"]["email"];
         phone = map["user"]["phone"];
         isPhoneVerified = map["user"]["is_phone_verified"] == '1' || map["user"]["is_phone_verified"] == 1 || map["user"]["is_phone_verified"] == true;
-        isMailVerified = map["user"]["is_email_verified"] == '1' || map["user"]["is_email_verified"] == 1 || map["user"]["is_email_verified"] == true;
       }
 
       if(token != null){
@@ -183,14 +180,13 @@ class AuthController with ChangeNotifier {
     _isLoading = false;
     if (apiResponse.response != null && (apiResponse.response!.statusCode == 200 || apiResponse.response!.statusCode == 201)) {
       final Map map = ApiEnvelope.content(apiResponse.response!.data);
-      String? tempToken = '', token = '', message = '';
+      String? tempToken = '', token = '';
 
       if (map.containsKey('temporary_token')) {
         tempToken = map["temporary_token"];
       } else if(map.containsKey('token')) {
         token = map["token"];
       }
-      message = ApiEnvelope.message(apiResponse.response!.data);
 
 
       if(token != null && token.isNotEmpty) {
@@ -283,11 +279,10 @@ class AuthController with ChangeNotifier {
       clearGuestId();
       final Map content = ApiEnvelope.content(apiResponse.response!.data);
 
-      String? temporaryToken = '', token = '', message = '', email, phone;
+      String? temporaryToken = '', token = '', email, phone;
       bool isPhoneVerified = false;
       bool isMailVerified = false;
 
-      message = ApiEnvelope.message(apiResponse.response!.data);
       token = content["token"];
       temporaryToken = content["temporary_token"];
       email = content["email"];

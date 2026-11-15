@@ -217,59 +217,6 @@ class TransactionDetailsWidget extends StatelessWidget {
   }
 }
 
-
-class _FieldTile extends StatelessWidget {
-  final String field;
-  const _FieldTile({super.key, required this.field,});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text.rich(TextSpan(
-            text: "$field",
-            style: robotoRegular.copyWith(
-              fontSize: Dimensions.fontSizeDefault,
-              color: Theme.of(context).textTheme.headlineLarge?.color,
-            ),
-          children: []
-        )),
-
-        Text.rich(TextSpan(
-            text: "  :  ",
-            style: robotoRegular.copyWith(
-              fontSize: Dimensions.fontSizeDefault,
-              color: Theme.of(context).textTheme.headlineLarge?.color,
-            ),
-        )),
-      ],
-    );
-  }
-}
-
-class _ValueTile extends StatelessWidget {
-  final String value;
-  const _ValueTile({super.key, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text.rich(TextSpan(
-            text: "$value ",
-            style: robotoRegular.copyWith(
-              fontSize: Dimensions.fontSizeDefault,
-              color: Theme.of(context).textTheme.headlineLarge?.color,
-            ),
-        )),
-      ],
-    );
-  }
-}
-
-
 class _NoteWidget extends StatelessWidget {
   final bool isApprove;
   final String note;

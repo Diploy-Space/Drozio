@@ -91,6 +91,8 @@ dependencies:
   flutter_image_compress: ^2.5.1
   textfield_tags: ^2.0.2
 
+  collection: any
+  html: any
 dev_dependencies:
   flutter_lints: ^6.0.0
   drift_dev: ^2.34.6

@@ -54,7 +54,7 @@ class WithdrawalCardWidget extends StatelessWidget {
   String _subtitle(BuildContext context) {
     if (_isPaid) return getTranslated('successfully_completed_the_payment', context) ?? "Successfully completed the payment";
     if (_isCOD) return getTranslated('admin_commission_for_cod', context) ?? "Admin commission for COD";
-    return _isApproved ? getTranslated('admin_has_completed_payment', context) ?? "" : getTranslated('auction_earnings_transferred', context) ?? "" + (_isDenied ? ' .' : '');
+    return _isApproved ? getTranslated('admin_has_completed_payment', context) ?? "" : getTranslated('auction_earnings_transferred', context) ?? (_isDenied ? ' .' : '');
   }
 
   @override

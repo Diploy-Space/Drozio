@@ -78,13 +78,6 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
       builder: (context, productDetailsController,_) {
         return Consumer<CategoryController>(
             builder: (context, categoryProvider,_) {
-              String? category = '';
-              if(categoryProvider.categoryList != null && categoryProvider.categoryList!.isNotEmpty){
-                for(int i=0; i< categoryProvider.categoryList!.length; i++){
-                  if(_productModel!.categoryIds![0].id == categoryProvider.categoryList![i].id.toString()){
-                    category = categoryProvider.categoryList![i].name;
-                  }}}
-
               bool isClearanceSaleActive = _productModel?.clearanceSale != null;
 
               return RefreshIndicator(
@@ -464,10 +457,6 @@ class _InformationTitleWidget extends StatelessWidget {
 class _InformationElementWidget extends StatelessWidget {
   final String labelText;
   final String infoText;
-  final int labelFlex;
-  final int infoFlex;
-  final TextStyle? labelTextStyle;
-  final TextStyle? infoTextStyle;
   final bool showDivider;
   final bool valueWithSign;
   final bool isPercentage;
@@ -475,10 +464,6 @@ class _InformationElementWidget extends StatelessWidget {
   const _InformationElementWidget({
     required this.labelText,
     required this.infoText,
-    this.labelFlex = 4,
-    this.infoFlex = 6,
-    this.labelTextStyle,
-    this.infoTextStyle,
     this.showDivider = true,
     this.valueWithSign = false,
     this.isPercentage = false,
@@ -488,12 +473,12 @@ class _InformationElementWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Row(children: [
-        Expanded(flex: labelFlex, child: Text(labelText, style: labelTextStyle ?? robotoRegular.copyWith(
+        Expanded(flex: 4, child: Text(labelText, style: robotoRegular.copyWith(
           fontSize: Dimensions.fontSizeSmall,
           color: Theme.of(context).textTheme.bodyLarge?.color?.withValues(alpha: 0.80),
         ), overflow: TextOverflow.ellipsis, maxLines: 1, textAlign: TextAlign.start)),
 
-        Expanded(flex: infoFlex, child: valueWithSign ?
+        Expanded(flex: 6, child: valueWithSign ?
         Text(PriceConverter.convertPrice(context, double.parse(infoText)), style: robotoRegular.copyWith(
           fontSize: Dimensions.fontSizeSmall,
           color: Theme.of(context).textTheme.bodyLarge?.color?.withValues(alpha: 0.80),
@@ -502,7 +487,7 @@ class _InformationElementWidget extends StatelessWidget {
           onTap: () {
             debugPrint(infoText);
           },
-          child: Text('$infoText${isPercentage ? "%" : ''}', style: infoTextStyle ?? robotoRegular.copyWith(
+          child: Text('$infoText${isPercentage ? "%" : ''}', style: robotoRegular.copyWith(
             fontSize: Dimensions.fontSizeSmall,
             color: Theme.of(context).textTheme.bodyLarge?.color?.withValues(alpha: 0.80),
           ), overflow: TextOverflow.ellipsis, maxLines: 6, textAlign: TextAlign.start),

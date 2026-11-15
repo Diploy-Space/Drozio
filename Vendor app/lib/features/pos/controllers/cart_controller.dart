@@ -675,17 +675,10 @@ class CartController extends ChangeNotifier{
 
   double calculateInvoiceProductPrice(Details cartItem) {
     double productPrice = 0.0;
-    double productDiscount = 0.0;
-    double includeTax = 0.0;
 
     var productDetails = cartItem.productDetails;
     var variant = cartItem.variant;
-    var qty = cartItem.qty;
-    var discountType = productDetails?.discountType;
-    var discount = productDetails?.discount;
-    var taxModel = productDetails?.taxModel;
-
-
+    var qty = cartItem.qty ?? 0;
 
     // Check for variant and product type
     if (variant != null && variant.isNotEmpty && productDetails?.productType == 'physical') {
@@ -710,35 +703,7 @@ class CartController extends ChangeNotifier{
       productPrice = productDetails?.unitPrice ?? 0;
     }
 
-    // Calculate discount
-    if (productDetails?.clearanceSale != null && productDetails?.clearanceSale?.isActive == 1) {
-      if (productDetails?.clearanceSale?.discountType == 'flat') {
-        productDiscount = (productDetails!.clearanceSale!.discountAmount! * qty!);
-      } else {
-        productDiscount = ((productDetails!.clearanceSale!.discountAmount! / 100) * productPrice * qty!);
-      }
-    } else {
-      // Apply regular discount based on the type
-      if (discountType == 'flat') {
-        productDiscount = discount! * qty!;
-      } else {
-        productDiscount = (discount! / 100) * productPrice * qty!;
-      }
-    }
-
-    // Apply tax if applicable
-    //double priceAfterDiscount = (productPrice * qty) - productDiscount;
     double priceAfterDiscount = (productPrice * qty);
-
-    if (taxModel == 'include') {
-      // includeTax = calculateIncludedTax(productPrice, productDetails!.tax!) * qty; // Tax is already included
-    } else {
-      // If tax is not included, apply tax
-      // finalPrice = priceAfterDiscount + (productDetails['tax'] / 100) * priceAfterDiscount;
-    }
-
-    // Multiply by quantity and return final price
-    //priceAfterDiscount *= qty;
     return priceAfterDiscount;
   }
 
@@ -746,14 +711,12 @@ class CartController extends ChangeNotifier{
   double calculateInvoiceProductDiscount(Details cartItem) {
     double productPrice = 0.0;
     double productDiscount = 0.0;
-    double includeTax = 0.0;
 
     var productDetails = cartItem.productDetails;
     var variant = cartItem.variant;
     var qty = cartItem.qty;
     var discountType = productDetails?.discountType;
     var discount = productDetails?.discount;
-    var taxModel = productDetails?.taxModel;
 
 
 
@@ -796,18 +759,6 @@ class CartController extends ChangeNotifier{
       }
     }
 
-    // Apply tax if applicable
-    //double priceAfterDiscount = (productPrice * qty) - productDiscount;
-
-    if (taxModel == 'include') {
-      // includeTax = calculateIncludedTax(productPrice, productDetails!.tax!) * qty; // Tax is already included
-    } else {
-      // If tax is not included, apply tax
-      // finalPrice = priceAfterDiscount + (productDetails['tax'] / 100) * priceAfterDiscount;
-    }
-
-    // Multiply by quantity and return final price
-    //priceAfterDiscount *= qty;
     return productDiscount;
   }
 

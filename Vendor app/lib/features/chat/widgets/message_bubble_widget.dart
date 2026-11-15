@@ -148,6 +148,7 @@ class MessageBubbleWidget extends StatelessWidget {
       }
 
       if (directory == null) return;
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Downloading ${mediaList.length} files...'), backgroundColor: Colors.black54, duration: const Duration(seconds: 3)),
       );

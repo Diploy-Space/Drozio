@@ -71,8 +71,6 @@ class EditProductCartBottomSheetWidgetState extends State<EditProductCartBottomS
 
                   List<String> variationFileType = [];
                   List<List<String>> extentions = [];
-                  String? variantKey;
-                  Variation? variationModel;
 
                   String? colorWiseSelectedImage = '';
 
@@ -115,7 +113,6 @@ class EditProductCartBottomSheetWidgetState extends State<EditProductCartBottomS
                   for(Variation variation in widget.product!.variation!) {
                     if(variation.type == variationType) {
                       price = variation.price;
-                      variationModel = variation;
                       stock = variation.qty;
                       break;
                     }

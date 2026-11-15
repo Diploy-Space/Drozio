@@ -23,7 +23,7 @@ class ClearanceAddListItem extends StatefulWidget {
 
 class _ClearanceAddListItemState extends State<ClearanceAddListItem> {
   bool hasVariation = false;
-  var result;
+  ({double minPrice, double maxPrice})? result;
   String? errorText;
   bool? isWrongAmount;
 
@@ -227,13 +227,13 @@ class _ClearanceAddListItemState extends State<ClearanceAddListItem> {
         isWrongAmount = true;
         clearanceSaleController.clearanceSaleAddModel[widget.index].isWrongAmount = true;
       });
-    } else if (hasVariation && discountType == 'amount' && double.tryParse(controller.text)! < PriceConverter.convertAmount(result.minPrice, context)) {
+    } else if (hasVariation && result != null && discountType == 'amount' && double.tryParse(controller.text)! < PriceConverter.convertAmount(result!.minPrice, context)) {
       setState(() {
         errorText = getTranslated('discount_amount_cannot_less_product_price', context);
         isWrongAmount = true;
         clearanceSaleController.clearanceSaleAddModel[widget.index].isWrongAmount = true;
       });
-    } else if(hasVariation && discountType == 'amount' && double.tryParse(controller.text)! > PriceConverter.convertAmount(result.maxPrice, context)) {
+    } else if(hasVariation && result != null && discountType == 'amount' && double.tryParse(controller.text)! > PriceConverter.convertAmount(result!.maxPrice, context)) {
       setState(() {
         errorText = getTranslated('discount_amount_cannot_grater_then_product_price', context);
         isWrongAmount = true;

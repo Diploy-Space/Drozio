@@ -184,7 +184,7 @@ class _LegendItem extends StatelessWidget {
   final Color color;
   final String label;
   final bool isDashed;
-  const _LegendItem({required this.color, required this.label, this.isDashed = false});
+  const _LegendItem({required this.color, required this.label}) : isDashed = false;
 
   @override
   Widget build(BuildContext context) {

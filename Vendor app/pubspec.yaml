@@ -70,6 +70,8 @@ dependencies:
   chewie: ^1.16.2
   get_thumbnail_video: ^0.7.3
   flutter_svg: ^2.3.0
+  image: ^3.3.0
+  html: ^0.15.0
   collection: any
   fluttertoast: ^10.0.0
   flutter_image_compress: ^2.5.1

@@ -374,6 +374,7 @@ class _AuctionListScreenState extends State<AuctionListScreen> {
                                     final isActive = product.status == '1';
                                     final confirmed = await showAuctionDialog(context, isActive ? AuctionDialogType.turnOff : AuctionDialogType.turnOn);
                                     if (confirmed != true) return;
+                                    if (!context.mounted) return;
                                     final ok = await Provider.of<AuctionProductController>(context, listen: false).toggleAuctionStatus(product.id!, status: isActive ? '0' : '1');
                                     if (ok) _loadData(isReload: true);
                                   } else if (action == AuctionMenuAction.delete) {

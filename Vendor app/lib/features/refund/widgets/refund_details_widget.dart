@@ -325,7 +325,7 @@ class RefundDetailWidgetState extends State<RefundDetailWidget> {
           builder: (context,refundReq,_) {
             return refundReq.refundDetailsModel?.refundRequest != null && refundReq.refundDetailsModel!.refundRequest!.isNotEmpty &&
               refundReq.refundDetailsModel!.refundRequest?[0].refundStatus != null && refundReq.refundDetailsModel!.refundRequest![0].refundStatus!.isNotEmpty &&
-              (refundReq.refundDetailsModel!.refundRequest![0].refundStatus!.length != 0 && refundReq.refundDetailsModel!.refundRequest![0].refundStatus![(refundReq.refundDetailsModel!.refundRequest![0].refundStatus?.length ?? 0) -1].changeBy == 'admin') ?
+              (refundReq.refundDetailsModel!.refundRequest![0].refundStatus!.isNotEmpty && refundReq.refundDetailsModel!.refundRequest![0].refundStatus![(refundReq.refundDetailsModel!.refundRequest![0].refundStatus?.length ?? 0) -1].changeBy == 'admin') ?
              const SizedBox() : ApprovedAndRejectWidget(refundModel: widget.refundModel, orderDetailsId: widget.orderDetailsId);
           }
         ),

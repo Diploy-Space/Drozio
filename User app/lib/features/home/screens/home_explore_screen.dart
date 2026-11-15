@@ -319,12 +319,6 @@ class _HomeExploreScreenState extends State<HomeExploreScreen> with TickerProvid
                                 child: Consumer<ProfileController>(
                                   builder: (context, profileController, _) {
                                     final bool isLoggedIn = Provider.of<AuthController>(context, listen: false).isLoggedIn();
-                                    final String firstLine = isLoggedIn
-                                      ? getTranslated('hello_welcome', context)!
-                                      : getTranslated('hello', context)!;
-                                    final String secondLine = isLoggedIn
-                                      ? ((profileController.userInfoModel?.fName ?? '') + (' '+ (profileController.userInfoModel?.lName ?? '')))
-                                      : getTranslated('welcome', context)!;
                                     if (showModeSelector) {
                                       return Row(
                                         crossAxisAlignment: CrossAxisAlignment.center,

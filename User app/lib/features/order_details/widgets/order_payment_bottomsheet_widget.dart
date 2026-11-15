@@ -32,7 +32,6 @@ class OrderPaymentMethodBottomSheetWidget extends StatefulWidget {
 }
 
 class OrderPaymentMethodBottomSheetWidgetState extends State<OrderPaymentMethodBottomSheetWidget> {
-  String? _orderId;
   final TextEditingController changeAmountTextController = TextEditingController();
   final ConfigModel? configModel = Provider.of<SplashController>(Get.context!, listen: false).configModel;
   CheckoutController checkoutController = Provider.of<CheckoutController>(Get.context!, listen: false);
@@ -43,7 +42,6 @@ class OrderPaymentMethodBottomSheetWidgetState extends State<OrderPaymentMethodB
     if((configModel?.cashOnDelivery ?? false) && !widget.onlyDigital && !checkoutController.isCODChecked) {
       checkoutController.setOfflineChecked('cod', notify: false);
     }
-    _orderId = widget.orderId;
     super.initState();
   }
 

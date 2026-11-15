@@ -7,7 +7,6 @@ import 'package:sixvalley_vendor_app/features/order_edit/controllers/order_edit_
 import 'package:sixvalley_vendor_app/features/order_edit/domain/models/order_edit_cart_model.dart';
 import 'package:sixvalley_vendor_app/features/pos/controllers/cart_controller.dart';
 import 'package:sixvalley_vendor_app/helper/color_helper.dart';
-import 'package:sixvalley_vendor_app/helper/debounce_helper.dart';
 import 'package:sixvalley_vendor_app/helper/price_converter.dart';
 import 'package:sixvalley_vendor_app/localization/language_constrants.dart';
 import 'package:sixvalley_vendor_app/utill/dimensions.dart';
@@ -28,7 +27,6 @@ class ItemCartWidget extends StatefulWidget {
 }
 
 class _ItemCartWidgetState extends State<ItemCartWidget> {
-  final DebounceHelper _debounce = DebounceHelper(milliseconds: 500);
 
   DigitalVariation? digitalVariation;
   Variation? variation;
@@ -51,12 +49,6 @@ class _ItemCartWidgetState extends State<ItemCartWidget> {
         }
       }
     }
-
-
-    double? price;
-    price = widget.cartModel?.price;
-
-
 
     return IgnorePointer(
       ignoring: widget.cartModel?.product?.productType == 'digital' ? true : false,

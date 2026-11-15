@@ -653,7 +653,6 @@ class AddProductController extends ChangeNotifier {
   }) {
 
     bool digitalProductVariationEmpty = false;
-    bool isTitleEmpty = false;
     bool isFileEmpty = false;
     bool isPriceEmpty = false;
     bool isSKUEmpty = false;
@@ -678,10 +677,6 @@ class AddProductController extends ChangeNotifier {
         }
         if(digitalProductController.variationFileList[index][i].skuController?.text.trim() == ''){
           isSKUEmpty = true;
-          break;
-        }
-        if(digitalProductController.variationFileList[index][i].fileName == null){
-          isTitleEmpty = true;
           break;
         }
       }

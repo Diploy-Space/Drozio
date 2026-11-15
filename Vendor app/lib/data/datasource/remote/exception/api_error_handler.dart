@@ -100,19 +100,16 @@ class ApiErrorHandler {
               }
               break;
             case DioExceptionType.badCertificate:
-            // TODO: Handle this case.
+              errorDescription = "Invalid SSL certificate";
               break;
             case DioExceptionType.connectionError:
-            // TODO: Handle this case.
-              break;
-            case DioExceptionType.transformTimeout:
-            // TODO: Handle this case.
-              break;
-            case DioExceptionType.unknown:
-            // TODO: Handle this case.
+              errorDescription = "Connection to server failed. Please check internet connection";
               break;
             case DioExceptionType.transformTimeout:
               errorDescription = "Connection timeout with API server";
+              break;
+            case DioExceptionType.unknown:
+              errorDescription = "Failed to communicate with server";
               break;
           }
         } else {

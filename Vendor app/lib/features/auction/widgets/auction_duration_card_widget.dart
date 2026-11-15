@@ -105,7 +105,6 @@ class _DurationUnit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDark = Provider.of<ThemeController>(context, listen: false).darkTheme;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

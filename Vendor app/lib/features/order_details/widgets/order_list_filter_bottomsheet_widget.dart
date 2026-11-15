@@ -10,7 +10,6 @@ import 'package:sixvalley_vendor_app/features/pos/controllers/cart_controller.da
 import 'package:sixvalley_vendor_app/features/pos/controllers/customer_controller.dart';
 import 'package:sixvalley_vendor_app/features/pos/screens/customer_search_screen.dart';
 import 'package:sixvalley_vendor_app/features/product/controllers/product_controller.dart';
-import 'package:sixvalley_vendor_app/features/product/domain/enums/product_type_enum.dart';
 import 'package:sixvalley_vendor_app/features/splash/controllers/splash_controller.dart';
 import 'package:sixvalley_vendor_app/features/splash/domain/models/config_model.dart';
 import 'package:sixvalley_vendor_app/helper/debounce_helper.dart';
@@ -573,12 +572,14 @@ class _OrderListFilterBottomSheetState<T extends OrderListFilterHost> extends St
 class _CheckboxItem extends StatelessWidget {
   final String? title;
   final bool checked;
-  final bool? isStart;
-  final bool? isSubCategory;
-  final bool? isSubSubCategory;
-  final bool? showDropdown;
+  final bool isStart;
   final Function()? onTap;
-  const _CheckboxItem({required this.title, required this.checked, this.onTap, this.isStart = false, this.showDropdown = false, this.isSubCategory = false, this.isSubSubCategory = false});
+  const _CheckboxItem({
+    required this.title,
+    required this.checked,
+    this.onTap,
+    this.isStart = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -587,11 +588,11 @@ class _CheckboxItem extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Row(
-          mainAxisAlignment: isStart!
+          mainAxisAlignment: isStart
               ? MainAxisAlignment.start
               : MainAxisAlignment.spaceBetween,
           children: [
-            if (isStart!) ...[
+            if (isStart) ...[
               Container(
                 width: 20,
                 height: 20,
@@ -617,10 +618,6 @@ class _CheckboxItem extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  SizedBox(
-                    width: isSubCategory! ? Dimensions.paddingSizeDefault : isSubSubCategory! ? Dimensions.paddingSizeButton : 0,
-                  ),
-
                   Flexible(
                     child: Text(
                       title ?? '',
@@ -631,19 +628,12 @@ class _CheckboxItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-
-                  if (showDropdown ?? false)
-                    Icon(
-                      checked ? Icons.keyboard_arrow_down_outlined : Icons.keyboard_arrow_right,
-                      size: Dimensions.iconSizeMedium,
-                      color: Theme.of(context).textTheme.headlineMedium?.color,
-                    ),
                 ],
               ),
             ),
 
 
-            if (!isStart!)
+            if (!isStart)
               Container(
                 width: 20,
                 height: 20,
@@ -661,26 +651,6 @@ class _CheckboxItem extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-
-
-class _ViewMoreWidget extends StatelessWidget {
-  final Function() onTap;
-  final bool isMore;
-  final bool isActive;
-  final String count;
-  const _ViewMoreWidget({required this.onTap, required this.isMore, required this.isActive, required this.count});
-
-  @override
-  Widget build(BuildContext context) {
-    return isActive ? Center(child: TextButton(
-      onPressed: ()=> onTap(),
-      child: Text('${getTranslated(isMore ? 'see_less' : 'see_more', context)!}${!isMore ? '($count)' : ''}', style: robotoMedium.copyWith(
-        color: Theme.of(context).primaryColor,
-      )),
-    )) : const SizedBox();
   }
 }
 
@@ -813,33 +783,6 @@ class _ButtonWidgetState<T extends OrderListFilterHost> extends State<_ButtonWid
 
 
 
-  bool _areCategoriesEqual(List<CategoryModel>? categoryList, List<int>? currentCategoryIds) {
-    final Set<int> selectedCategoryIds = (categoryList?.isEmpty ?? true) ? {} : categoryList!
-        .where((category) => category.checked == true)
-        .map((category) => category.id!)
-        .toSet();
-    final Set<int> currentCategorySet = currentCategoryIds?.toSet() ?? {};
-    return selectedCategoryIds.length == currentCategorySet.length && selectedCategoryIds.containsAll(currentCategorySet);
-  }
-
-  bool areSubCategoriesEqual(
-      List<CategoryModel>? categoryList,
-      List<int>? currentSubIds,
-      ) {
-    final Set<dynamic> selectedSet = (categoryList ?? [])
-        .expand((cat) => cat.subCategories ?? [])
-        .where((sub) => sub.checked == true)
-        .map((sub) => sub.id!)
-        .toSet();
-
-    final Set<int> currentSet = currentSubIds?.toSet() ?? {};
-
-    return selectedSet.length == currentSet.length &&
-        selectedSet.containsAll(currentSet);
-  }
-
-
-
   bool areSubSubCategoriesEqual(
       List<CategoryModel>? categoryList,
       List<int>? currentSubSubIds,
@@ -856,33 +799,11 @@ class _ButtonWidgetState<T extends OrderListFilterHost> extends State<_ButtonWid
     return selectedSet.length == currentSet.length &&
         selectedSet.containsAll(currentSet);
   }
-
-
-
-
-  bool _areAuthorsEqual(Set<int> authorIds, Set<int> currentAuthorIds, ProductTypeEnum? type) {
-    if(type == ProductTypeEnum.physical) return true;
-    return authorIds.length == currentAuthorIds.length && authorIds.containsAll(currentAuthorIds);
-  }
-
-  bool _arePublishersEqual(Set<int> publisherIds, Set<int> currentPublisherIds, ProductTypeEnum? type) {
-    if(type == ProductTypeEnum.physical) return true;
-    return publisherIds.length == currentPublisherIds.length && publisherIds.containsAll(currentPublisherIds);
-  }
-
-  bool _areBrandsEqual(Set<int> brandIds, Set<int> currentBrandIds, ProductTypeEnum? type) {
-    if(type == ProductTypeEnum.digital) return true;
-    return brandIds.length == currentBrandIds.length && brandIds.containsAll(currentBrandIds);
-  }
 }
 
 void _onCloseKeyboard(TextEditingController minController, TextEditingController maxController){
   _onCheckPriceRangeValidity(minController, maxController);
   FocusManager.instance.primaryFocus?.unfocus();
-}
-
-bool _areSortFilterEqual(String productSort, String filterSort) {
-  return  productSort == filterSort;
 }
 
 void _onCheckPriceRangeValidity(TextEditingController minController, TextEditingController maxController){

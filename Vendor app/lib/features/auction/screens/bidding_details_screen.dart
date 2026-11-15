@@ -28,8 +28,6 @@ import 'package:sixvalley_vendor_app/features/auction/widgets/withdrawal_card_wi
 import 'package:sixvalley_vendor_app/features/chat/domain/models/chat_model.dart';
 import 'package:sixvalley_vendor_app/features/chat/screens/chat_screen.dart';
 import 'package:sixvalley_vendor_app/features/dashboard/screens/dashboard_screen.dart';
-import 'package:sixvalley_vendor_app/features/splash/controllers/splash_controller.dart';
-import 'package:sixvalley_vendor_app/features/splash/domain/models/config_model.dart';
 import 'package:sixvalley_vendor_app/helper/debounce_helper.dart';
 import 'package:sixvalley_vendor_app/helper/price_converter.dart';
 import 'package:sixvalley_vendor_app/localization/language_constrants.dart';
@@ -146,8 +144,6 @@ class _BiddingDetailsScreenState extends State<BiddingDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ConfigModel? configModel = Provider.of<SplashController>(Get.context!, listen: false).configModel;
-
     final isLive = AuctionStatus.fromLabel(_detailsProduct?.auctionStatus ?? '').isLive;
     final isReadyToClaim = AuctionStatus.fromLabel(_detailsProduct?.auctionStatus ?? '').isReadyToClaim;
     final isReadyToDelivery = AuctionStatus.fromLabel(_detailsProduct?.deliveryStatus ?? '').isReadyToDelivery;
@@ -280,6 +276,7 @@ class _BiddingDetailsScreenState extends State<BiddingDetailsScreen> {
                           backgroundColor: Colors.transparent,
                           builder: (c) => const PaymentMethodBottomSheetWidget(onlyDigital: true),
                         );
+                        if (!context.mounted) return;
                         
                         String paymentMethod = '';
                         Map<String, dynamic> methodInformations = {};
@@ -333,6 +330,7 @@ class _BiddingDetailsScreenState extends State<BiddingDetailsScreen> {
                         }
                         
                         String? redirectLink = await controller.payCommission(_detailsProduct!.id!, requestData);
+                        if (!context.mounted) return;
                         if (redirectLink != null) {
                           if (redirectLink.isNotEmpty) {
                             Navigator.push(context, MaterialPageRoute(

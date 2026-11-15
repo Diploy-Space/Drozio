@@ -62,11 +62,6 @@ class _ShopProductWidgetState extends State<ShopProductWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final productController = Provider.of<ProductController>(context, listen: false);
-    String? filterStatus = productController.filterModel.isApproved;
-
-    //bool showStatusTag = filterStatus == null || filterStatus == '' || filterStatus == 'all';
-
     return Stack(
       children: [
         Padding(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sixvalley_ecommerce/common/basewidget/product_card_shimmer_widget.dart';
 import 'package:flutter_sixvalley_ecommerce/common/basewidget/product_card_widget.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/controllers/auth_controller.dart';
 import 'package:flutter_sixvalley_ecommerce/features/product/controllers/product_controller.dart';
 import 'package:flutter_sixvalley_ecommerce/features/home/widgets/redesign/home_title_widget.dart';
 import 'package:flutter_sixvalley_ecommerce/features/product/enums/product_type.dart';

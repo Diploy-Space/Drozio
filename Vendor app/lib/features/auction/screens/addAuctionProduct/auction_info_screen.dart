@@ -68,7 +68,9 @@ class AuctionInfoScreenState extends State<AuctionInfoScreen> with TickerProvide
           if (widget.auctionProduct!.endTime != null && widget.auctionProduct!.endTime!.isNotEmpty) {
             selectedEndTime = DateTime.tryParse(widget.auctionProduct!.endTime!)?.toLocal();
           }
-        } catch (e) {}
+        } catch (_) {
+          // Ignore date parse errors
+        }
       }
 
     }

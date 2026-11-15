@@ -6,7 +6,7 @@ class TemporaryCartListModel {
   String? customerName;
   int? userIndex;
   double? customerBalance;
-  double? _couponAmount;
+  double? couponAmount;
   String? couponCode;
   double? extraDiscount;
   bool? isUser;
@@ -18,20 +18,12 @@ class TemporaryCartListModel {
     this.customerName,
     this.userIndex,
     this.customerBalance,
-    double? couponAmount,
+    this.couponAmount,
     this.couponCode,
     this.extraDiscount,
     this.isUser,
     this.phoneNumber, // Initialize new field
-  }) {
-    _couponAmount = couponAmount;
-  }
-
-  double? get couponAmount => _couponAmount;
-
-  set couponAmount(double? value) {
-    _couponAmount = value;
-  }
+  });
 
   TemporaryCartListModel.fromJson(Map<String, dynamic> json) {
     if (json['cart'] != null) {
@@ -45,7 +37,7 @@ class TemporaryCartListModel {
     customerName = json['customer_name'];
     customerBalance = json['customer_balance'];
     couponCode = json['coupon_code'];
-    _couponAmount = json['coupon_discount_amount'];
+    couponAmount = json['coupon_discount_amount'];
     isUser = json['is_user'];
     phoneNumber = json['phone_number'];
   }
@@ -60,7 +52,7 @@ class TemporaryCartListModel {
     data['customer_name'] = customerName;
     data['customer_balance'] = customerBalance;
     data['coupon_code'] = couponCode;
-    data['coupon_discount_amount'] = _couponAmount;
+    data['coupon_discount_amount'] = couponAmount;
     data['is_user'] = isUser;
     data['phone_number'] = phoneNumber;
     return data;

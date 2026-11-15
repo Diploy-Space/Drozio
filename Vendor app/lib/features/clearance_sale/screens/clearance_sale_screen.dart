@@ -13,7 +13,6 @@ import 'package:sixvalley_vendor_app/features/clearance_sale/widgets/clearance_s
 import 'package:sixvalley_vendor_app/features/clearance_sale/widgets/delete_confiramation_dialog_widget.dart';
 import 'package:sixvalley_vendor_app/features/clearance_sale/widgets/show_confirmation_bottom_sheet_widget.dart';
 import 'package:sixvalley_vendor_app/features/order/screens/order_screen.dart';
-import 'package:sixvalley_vendor_app/helper/debounce_helper.dart';
 import 'package:sixvalley_vendor_app/localization/language_constrants.dart';
 import 'package:sixvalley_vendor_app/utill/dimensions.dart';
 import 'package:sixvalley_vendor_app/utill/images.dart';
@@ -30,7 +29,6 @@ class ClearanceSaleScreen extends StatefulWidget {
 class _ClearanceSaleScreenState extends State<ClearanceSaleScreen> {
 
   ScrollController scrollController = ScrollController();
-  final DebounceHelper _debounce = DebounceHelper(milliseconds: 500);
 
 
   @override

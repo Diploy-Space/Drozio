@@ -260,12 +260,13 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> with SingleTi
       // semantic announcements on iOS. https://github.com/flutter/flutter/issues/122101.
       _timer?.cancel();
       _timer = Timer(const Duration(seconds: 1), () {
-        SemanticsService.announce(stateHint, textDirection);
+        if (!mounted) return;
+        SemanticsService.sendAnnouncement(View.of(context), stateHint, textDirection);
         _timer?.cancel();
         _timer = null;
       });
     } else {
-      SemanticsService.announce(stateHint, textDirection);
+      SemanticsService.sendAnnouncement(View.of(context), stateHint, textDirection);
     }
   }
 
