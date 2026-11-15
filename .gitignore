@@ -35,6 +35,7 @@ Admin and web/.phpunit.result.cache
 Admin and web/temp-data-folder/
 
 # Flutter & Mobile Apps (User app & Vendor app)
+**/.gradle/
 **/.dart_tool/
 **/build/
 **/.pub-cache/
