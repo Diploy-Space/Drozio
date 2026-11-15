@@ -295,4 +295,4 @@ We welcome contributions! Please review our [CONTRIBUTING.md](CONTRIBUTING.md) f
 
 If you discover any security vulnerabilities or issues, please review our [SECURITY.md](SECURITY.md) for disclosure instructions.
 
-For questions, documentation, or technical support, refer to the [Official Documentation](https://6valley.app/documentation/).
+For questions, documentation, or technical support, please contact the Drozio team via GitHub Issues.

@@ -70,11 +70,7 @@
         <div class="bg-info bg-opacity-10 fs-12 px-12 py-10 text-dark rounded d-flex gap-2 align-items-center mb-3">
             <i class="fi fi-sr-lightbulb-on text-info"></i>
             <span>
-                {{ translate('Your current version is') }} {{ SOFTWARE_VERSION }}. {{ translate('To check our new version') }}
-                <a class="text-decoration-underline fw-semibold" target="_blank"
-                   href="https://codecanyon.net/item/6valley-multivendor-ecommerce-complete-ecommerce-mobile-app-web-and-admin-panel/31448597">
-                    {{ translate('Click Here') }}
-                </a>
+                {{ translate('Your current version is') }} {{ SOFTWARE_VERSION }}.
             </span>
         </div>
 

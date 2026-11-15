@@ -1,11 +1,11 @@
 @extends('layouts.blank')
 
-@section('title', '6valley Software Update')
+@section('title', 'Drozio Software Update')
 
 @section('content')
     <div class="update-content">
         <div class="text-center text-white mb-4">
-            <h2>{{ "6valley Software Update" }}</h2>
+            <h2>{{ "Drozio Software Update" }}</h2>
             <h6 class="fw-normal">
                 {{ "Please confirm your purchase information to update the software" }}
             </h6>

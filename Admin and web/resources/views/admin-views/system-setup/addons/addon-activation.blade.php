@@ -38,11 +38,7 @@
                                     @endif
                                 </div>
                                 <p class="mb-0 fs-12">
-                                    {{ translate('Enable the status and set up the required information to activate.') }}.
-                                    {{ translate('You can purchase the deliveryman app from') }}
-                                    <a href="https://store.6amtech.com/product/6valley-e-commerce-delivery-man-flutter-app/"
-                                       target="_blank" rel="noopener" class="text-decoration-underline fw-semibold text-primary">
-                                        {{ translate('Here') }}</a>.
+                                    {{ translate('Enable the status and set up the required information to activate.') }}
                                 </p>
                             </div>
                             <div class="d-flex gap-2">

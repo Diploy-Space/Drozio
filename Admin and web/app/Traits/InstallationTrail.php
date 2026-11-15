@@ -358,7 +358,7 @@ trait InstallationTrail
             ?: (filter_var($hostDomain, FILTER_VALIDATE_IP) ? $hostDomain : '');
 
         $updates = [
-            'APP_NAME' => '6valley' . time(),
+            'APP_NAME' => 'Drozio' . time(),
             'APP_ENV' => 'live',
             'APP_KEY' => 'base64:' . $key,
             'APP_DEBUG' => 'false',

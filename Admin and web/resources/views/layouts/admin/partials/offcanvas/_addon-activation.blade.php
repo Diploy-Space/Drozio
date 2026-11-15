@@ -52,10 +52,7 @@
                         <li>{{ translate('Enter your name, email, username and purchase code, then save to activate.') }}</li>
                         <li>{{ translate('Enter the username and purchase code exactly, without spaces.') }}</li>
                         <li>
-                            {{ translate('You can purchase the deliveryman app from') }}
-                            <a href="https://store.6amtech.com/product/6valley-e-commerce-delivery-man-flutter-app/"
-                               target="_blank" rel="noopener" class="text-decoration-underline fw-semibold">
-                                {{ translate('Here') }}</a>.
+                            {{ translate('Activate the deliveryman module to enable driver dispatch.') }}
                         </li>
                     </ul>
                 </div>

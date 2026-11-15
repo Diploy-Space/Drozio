@@ -170,7 +170,7 @@
                                         <li>{{translate('Add a label (Ex: abc company)')}}</li>
                                         <li>{{translate('Select ReCAPTCHA v3 as the ReCAPTCHA type')}}</li>
                                         <li>{{translate('Select sub type').':'.translate('Im not a robot checkbox')}}</li>
-                                        <li>{{translate('Add Domain (For ex: demo.6amtech.com)')}}</li>
+                                        <li>{{translate('Add Domain (For ex: demo.drozio.com)')}}</li>
                                         <li>{{translate('Check in Accept the ReCAPTCHA Terms of Service')}}</li>
                                         <li>{{translate('Press Submit')}}</li>
                                         <li>{{translate('Copy the Site Key and Secret Key, paste them below and save.').'.'}}</li>

@@ -18,11 +18,6 @@
                     <h4 class="title m-0">{{translate('Robots Meta Content & OG Meta Content')}}</h4>
                     <p class="m-0">
                         {{ translate('Optimize your website\'s performance, indexing status and search visibility') }}
-                        <a href="{{ 'https://6amtech.com/blog/robots-meta-content-and-og-content/' }}"
-                           target="_blank"
-                           class="text-primary text-decoration-underline fw-semibold">
-                            {{ translate('Learn more') }}
-                        </a>
                     </p>
                 </div>
                 <div>
@@ -116,12 +111,7 @@
                                                class="form-control" name="canonicals_url" value="{{ $pageData['canonicals_url'] ?? '' }}">
                                         <div class="mt-2 fs-12">
                                             <div>
-                                                {{translate('Learn how to get it.')}}
-                                                <a href="{{ 'https://6amtech.com/blog/canonical-urls/' }}"
-                                                   target="_blank"
-                                                   class="text-primary text-decoration-underline fw-semibold">
-                                                    {{ translate('Learn more') }}
-                                                </a>
+                                                {{translate('Set the canonical URL to prevent duplicate content indexing.')}}
                                             </div>
                                         </div>
                                     </div>

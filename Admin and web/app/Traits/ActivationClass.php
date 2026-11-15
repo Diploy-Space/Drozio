@@ -62,25 +62,6 @@ trait ActivationClass
 
         $errors = [];
         $activeStatus = base64_encode(1);
-        if (! $isLocal) {
-            try {
-                $response = Http::post(base64_decode('aHR0cHM6Ly9jaGVjay42YW10ZWNoLmNvbS9hcGkvdjIvcmVnaXN0ZXItZG9tYWlu'), [
-                    base64_decode('dXNlcm5hbWU=') => trim($username),
-                    base64_decode('cHVyY2hhc2Vfa2V5') => $purchaseKey,
-                    base64_decode('c29mdHdhcmVfaWQ=') => base64_decode($softwareId ?? SOFTWARE_ID),
-                    base64_decode('ZG9tYWlu') => $this->getDomain(),
-                    base64_decode('c29mdHdhcmVfdHlwZQ==') => $softwareType,
-                    base64_decode('bmFtZQ==') => $name ?? envFileValue('ADMIN_NAME', ''),
-                    base64_decode('ZW1haWw=') => $identifier ?? base64_decode(envFileValue('ADMIN_IDENTIFIER', '')),
-                ])->json();
-                $activeStatus = $response['active'] ?? base64_encode(1);
-                if (! base64_decode($activeStatus) && ! empty($response['errors'])) {
-                    $errors = $response['errors'];
-                }
-            } catch (Exception $exception) {
-                $activeStatus = base64_encode(1);
-            }
-        }
 
         return [
             'active' => base64_decode($activeStatus),
@@ -97,27 +78,7 @@ trait ActivationClass
 
     public function checkActivationCache(?string $app)
     {
-        if ($this->is_local() || is_null($app) || config('app.development_environment') || config('app.mode') == 'demo') {
-            return true;
-        }
-
-        $config = $this->getAddonsConfig();
-        $cacheKey = $this->getSystemAddonCacheKey(app: $app);
-
-        if (isset($config[$app]) && (! isset($config[$app]['active']) || $config[$app]['active'] == 0)) {
-            Cache::forget($cacheKey);
-
-            return false;
-        } else {
-            $appConfig = $config[$app];
-
-            return Cache::remember($cacheKey, $this->getCacheTimeoutByDays(days: 1), function () use ($app, $appConfig) {
-                $response = $this->getRequestConfig(username: $appConfig['username'], purchaseKey: $appConfig['purchase_key'], softwareId: $appConfig['software_id'], softwareType: $appConfig['software_type'] ?? base64_decode('cHJvZHVjdA=='));
-                $this->updateActivationConfig(app: $app, response: $response);
-
-                return (bool) $response['active'];
-            });
-        }
+        return true;
     }
 
     public function updateActivationConfig($app, $response): void

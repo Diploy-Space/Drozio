@@ -363,17 +363,9 @@ class AddonService
     public function activateByDomain(string $path, string $username, string $purchaseCode): array
     {
         $info = $this->find(id: $path);
+        $status = 1;
 
-        $response = Http::post(base64_decode('aHR0cHM6Ly9jaGVjay42YW10ZWNoLmNvbS9hcGkvdjEvYWN0aXZhdGlvbi1jaGVjaw=='), [
-            base64_decode('dXNlcm5hbWU=') => $username,
-            base64_decode('cHVyY2hhc2Vfa2V5') => $purchaseCode,
-            base64_decode('c29mdHdhcmVfaWQ=') => $info['software_id'] ?? null,
-            base64_decode('ZG9tYWlu') => $this->getCurrentDomain(),
-        ])->json();
-
-        $status = isset($response['active']) ? (int) (base64_decode($response['active']) ?? 1) : 0;
-
-        if ($status && $info !== null) {
+        if ($info !== null) {
             $this->writeInfo(path: $path, info: array_merge($info, [
                 'is_published' => 1,
                 'username' => $username,
@@ -383,10 +375,7 @@ class AddonService
 
         return [
             'status' => $status,
-            'activationUrl' => base64_decode('aHR0cHM6Ly9hY3RpdmF0aW9uLjZhbXRlY2guY29t')
-                .'?username='.$username
-                .'&purchase_code='.$purchaseCode
-                .'&domain='.url('/').'&',
+            'activationUrl' => '',
         ];
     }
 

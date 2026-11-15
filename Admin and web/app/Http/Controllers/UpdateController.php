@@ -45,7 +45,7 @@ class UpdateController extends Controller
         Helpers::setEnvironmentValue('PURCHASE_CODE', $purchaseKey);
         Helpers::setEnvironmentValue('SOFTWARE_VERSION', SOFTWARE_VERSION);
         Helpers::setEnvironmentValue('APP_MODE', 'live');
-        Helpers::setEnvironmentValue('APP_NAME', '6valley'.time());
+        Helpers::setEnvironmentValue('APP_NAME', 'Drozio'.time());
         Helpers::setEnvironmentValue('SESSION_LIFETIME', '60');
 
         $appUrl = URL::to('/');
