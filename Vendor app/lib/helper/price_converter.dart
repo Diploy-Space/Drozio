@@ -6,160 +6,216 @@ import 'package:sixvalley_vendor_app/features/splash/controllers/splash_controll
 
 class PriceConverter {
   static String convertPrice(BuildContext context, double? price, {double? discount, String? discountType}) {
-    final splashProvider = Provider.of<SplashController>(context, listen: false);
-    if(discount != null && discountType != null){
-      if(discountType == 'amount' || discountType == 'flat') {
-        price = price! - discount;
-      }else if(discountType == 'percent' || discountType == 'percentage') {
-        price = price! - ((discount / 100) * price);
+    if (price == null) return '';
+
+    if (discount != null && discountType != null) {
+      if (discountType == 'amount' || discountType == 'flat') {
+        price = price - discount;
+      } else if (discountType == 'percent' || discountType == 'percentage') {
+        price = price - ((discount / 100) * price);
       }
     }
 
-    bool singleCurrency = splashProvider.configModel?.currencyModel == 'single_currency';
+    try {
+      final splashProvider = Provider.of<SplashController>(context, listen: false);
+      final config = splashProvider.configModel;
+      bool singleCurrency = config?.currencyModel == 'single_currency';
+      bool inRight = config?.currencySymbolPosition == 'right';
+      final decimal = config?.decimalPointSettings ?? 1;
+      final symbol = splashProvider.myCurrency?.symbol ?? '\$';
 
-    bool inRight = Provider.of<SplashController>(context, listen: false).configModel!.currencySymbolPosition == 'right';
+      double myRate = splashProvider.myCurrency?.exchangeRate ?? 1.0;
+      double usdRate = splashProvider.usdCurrency?.exchangeRate ?? 1.0;
+      if (usdRate == 0) usdRate = 1.0;
 
-    final decimal = splashProvider.configModel?.decimalPointSettings ?? 1;
+      double finalPrice = singleCurrency ? price : (price * myRate * (1 / usdRate));
 
-    double finalPrice = singleCurrency ? price! : price! * splashProvider.myCurrency!.exchangeRate! * (1 / splashProvider.usdCurrency!.exchangeRate!);
+      final mod = pow(10.0, decimal);
+      finalPrice = (finalPrice * mod).truncateToDouble() / mod;
 
-    final mod = pow(10.0, decimal);
-    finalPrice = (finalPrice * mod).truncateToDouble() / mod;
+      final formatted = finalPrice.toStringAsFixed(decimal).replaceAllMapped(
+        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+        (Match m) => '${m[1]},',
+      );
 
-    final formatted = finalPrice.toStringAsFixed(decimal).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},',);
-
-    return '${inRight ? '' : splashProvider.myCurrency!.symbol}'
-        '$formatted'
-        '${inRight ? splashProvider.myCurrency!.symbol : ''}';
+      return inRight ? '$formatted$symbol' : '$symbol$formatted';
+    } catch (_) {
+      return price.toStringAsFixed(2);
+    }
   }
 
-
-  static double? convertWithDiscount(BuildContext context, double? price, double? discount, String? discountType) {
-    if(discountType == 'amount' || discountType == 'flat') {
-      price = price! - discount!;
-    }else if(discountType == 'percent' || discountType == 'percentage') {
-      price = price! - ((discount! / 100) * price);
+  static double? convertWithDiscount(BuildContext? context, double? price, double? discount, String? discountType) {
+    if (price == null) return null;
+    if (discount != null && discountType != null) {
+      if (discountType == 'amount' || discountType == 'flat') {
+        price = price - discount;
+      } else if (discountType == 'percent' || discountType == 'percentage') {
+        price = price - ((discount / 100) * price);
+      }
     }
     return price;
   }
 
-
   static String convertPriceWithoutSymbol(BuildContext context, double? price, {double? discount, String? discountType}) {
-    if(discount != null && discountType != null){
-      if(discountType == 'amount' || discountType == 'flat') {
-        price = price! - discount;
-      }else if(discountType == 'percent' || discountType == 'percentage') {
-        price = price! - ((discount / 100) * price);
-      }
-    }
-    final splashProvider = Provider.of<SplashController>(context, listen: false);
-    bool singleCurrency = splashProvider.configModel!.currencyModel == 'single_currency';
+    if (price == null) return '0.0';
 
-    return (singleCurrency? price : price!
-        * splashProvider.myCurrency!.exchangeRate!
-        * (1 / splashProvider.usdCurrency!.exchangeRate!))!.toStringAsFixed(splashProvider.configModel!.decimalPointSettings!);
-  }
-
-
-  static String reverseConvertPriceWithoutSymbol(BuildContext context, double? localPrice, {double? discount, String? discountType, bool removeDecimalPoint = false}) {
-
-    if (localPrice == null) return '0.00'; // Handle null price
-
-    final splashProvider = Provider.of<SplashController>(context, listen: false);
-    bool singleCurrency = splashProvider.configModel!.currencyModel == 'single_currency';
-
-    // Reverse currency conversion: Convert the local price back to the base price (USD)
-    if (!singleCurrency && splashProvider.myCurrency != null && splashProvider.usdCurrency != null) {
-      localPrice = localPrice / splashProvider.myCurrency!.exchangeRate! * splashProvider.usdCurrency!.exchangeRate!;
-    }
-
-    // Apply reverse discount if discount and type are provided
     if (discount != null && discountType != null) {
       if (discountType == 'amount' || discountType == 'flat') {
-        localPrice = localPrice + discount;
+        price = price - discount;
       } else if (discountType == 'percent' || discountType == 'percentage') {
-        localPrice = localPrice / (1 - (discount / 100));
+        price = price - ((discount / 100) * price);
       }
     }
 
-    // Format the final price with the correct number of decimals
+    try {
+      final splashProvider = Provider.of<SplashController>(context, listen: false);
+      final config = splashProvider.configModel;
+      bool singleCurrency = config?.currencyModel == 'single_currency';
+      int decimalPoint = config?.decimalPointSettings ?? 1;
 
-    if(removeDecimalPoint) {
+      double myRate = splashProvider.myCurrency?.exchangeRate ?? 1.0;
+      double usdRate = splashProvider.usdCurrency?.exchangeRate ?? 1.0;
+      if (usdRate == 0) usdRate = 1.0;
+
+      double finalPrice = singleCurrency ? price : (price * myRate * (1 / usdRate));
+      return finalPrice.toStringAsFixed(decimalPoint);
+    } catch (_) {
+      return price.toStringAsFixed(2);
+    }
+  }
+
+  static String reverseConvertPriceWithoutSymbol(BuildContext context, double? localPrice, {double? discount, String? discountType, bool removeDecimalPoint = false}) {
+    if (localPrice == null) return '0.00';
+
+    try {
+      final splashProvider = Provider.of<SplashController>(context, listen: false);
+      bool singleCurrency = splashProvider.configModel?.currencyModel == 'single_currency';
+
+      if (!singleCurrency && splashProvider.myCurrency != null && splashProvider.usdCurrency != null) {
+        double myRate = splashProvider.myCurrency?.exchangeRate ?? 1.0;
+        double usdRate = splashProvider.usdCurrency?.exchangeRate ?? 1.0;
+        if (myRate != 0) {
+          localPrice = localPrice / myRate * usdRate;
+        }
+      }
+
+      if (discount != null && discountType != null) {
+        if (discountType == 'amount' || discountType == 'flat') {
+          localPrice = localPrice + discount;
+        } else if (discountType == 'percent' || discountType == 'percentage') {
+          if (discount < 100) {
+            localPrice = localPrice / (1 - (discount / 100));
+          }
+        }
+      }
+
       return localPrice.toString();
-    } else {
+    } catch (_) {
       return localPrice.toString();
     }
   }
 
-
-
   static double systemCurrencyToDefaultCurrency(double price, BuildContext context) {
-    final splashProvider = Provider.of<SplashController>(context, listen: false);
-    bool singleCurrency = splashProvider.configModel!.currencyModel == 'single_currency';
-    if(singleCurrency) {
-      return price / 1;
-    }else {
-      return price / splashProvider.myCurrency!.exchangeRate!;
+    try {
+      final splashProvider = Provider.of<SplashController>(context, listen: false);
+      bool singleCurrency = splashProvider.configModel?.currencyModel == 'single_currency';
+      if (singleCurrency) {
+        return price;
+      } else {
+        double myRate = splashProvider.myCurrency?.exchangeRate ?? 1.0;
+        if (myRate == 0) myRate = 1.0;
+        return price / myRate;
+      }
+    } catch (_) {
+      return price;
     }
   }
 
   static double convertAmount(double amount, BuildContext context) {
-    final splashProvider = Provider.of<SplashController>(context, listen: false);
-    return double.parse((amount * splashProvider.myCurrency!.exchangeRate! *
-        (1/splashProvider.usdCurrency!.exchangeRate!)).toStringAsFixed(splashProvider.configModel!.decimalPointSettings!));
+    try {
+      final splashProvider = Provider.of<SplashController>(context, listen: false);
+      final config = splashProvider.configModel;
+      int decimal = config?.decimalPointSettings ?? 1;
+      double myRate = splashProvider.myCurrency?.exchangeRate ?? 1.0;
+      double usdRate = splashProvider.usdCurrency?.exchangeRate ?? 1.0;
+      if (usdRate == 0) usdRate = 1.0;
+
+      return double.parse((amount * myRate * (1 / usdRate)).toStringAsFixed(decimal));
+    } catch (_) {
+      return amount;
+    }
   }
+
   static String percentageCalculation(BuildContext context, double? price, double? discount, String? discountType) {
-    return '-${(discountType == 'percent' || discountType == 'percentage') ? '$discount %'
-        : convertPrice(context, discount)}';
-  }
-  static String discountCalculationWithOutSymbol(BuildContext context,double price, double discount, String? discountType, {bool convertCurrency = true}) {
-    final splashProvider = Provider.of<SplashController>(context, listen: false);
-
-    if(discountType == 'amount') {
-      discount =  discount;
-    }else if(discountType == 'percent') {
-      discount =  ((discount / 100) * price);
-    }
-
-    if(discountType == 'percent' && convertCurrency) {
-      discount = ((discount * splashProvider.myCurrency!.exchangeRate! *
-        (1/splashProvider.usdCurrency!.exchangeRate!)));
-    }
-
-    return discount.toStringAsFixed(2);
+    return '-${(discountType == 'percent' || discountType == 'percentage') ? '$discount %' : convertPrice(context, discount)}';
   }
 
-  static String discountCalculation(BuildContext context,double price, double discount, String? discountType) {
-    final splashProvider = Provider.of<SplashController>(context, listen: false);
-    if(discountType == 'amount') {
-      discount =  discount;
-    }else if(discountType == 'percent') {
-      discount =  ((discount / 100) * price);
+  static String discountCalculationWithOutSymbol(BuildContext context, double price, double discount, String? discountType, {bool convertCurrency = true}) {
+    try {
+      final splashProvider = Provider.of<SplashController>(context, listen: false);
+
+      if (discountType == 'percent') {
+        discount = ((discount / 100) * price);
+      }
+
+      if (discountType == 'percent' && convertCurrency) {
+        double myRate = splashProvider.myCurrency?.exchangeRate ?? 1.0;
+        double usdRate = splashProvider.usdCurrency?.exchangeRate ?? 1.0;
+        if (usdRate == 0) usdRate = 1.0;
+        discount = discount * myRate * (1 / usdRate);
+      }
+
+      return discount.toStringAsFixed(2);
+    } catch (_) {
+      return discount.toStringAsFixed(2);
     }
-    return '${splashProvider.myCurrency!.symbol} ${discount.toStringAsFixed(2)}';
   }
 
+  static String discountCalculation(BuildContext context, double price, double discount, String? discountType) {
+    try {
+      final splashProvider = Provider.of<SplashController>(context, listen: false);
+      if (discountType == 'percent') {
+        discount = ((discount / 100) * price);
+      }
+      final symbol = splashProvider.myCurrency?.symbol ?? '\$';
+      return '$symbol ${discount.toStringAsFixed(2)}';
+    } catch (_) {
+      return '\$ ${discount.toStringAsFixed(2)}';
+    }
+  }
 
-  static String getUnitCurrency (BuildContext context, double? price) {
-    bool singleCurrency = Provider.of<SplashController>(context, listen: false).configModel!.currencyModel == 'single_currency';
-    bool inRight = Provider.of<SplashController>(context, listen: false).configModel!.currencySymbolPosition == 'right';
+  static String getUnitCurrency(BuildContext context, double? price) {
+    if (price == null) return '';
+    try {
+      final splashProvider = Provider.of<SplashController>(context, listen: false);
+      final config = splashProvider.configModel;
+      bool inRight = config?.currencySymbolPosition == 'right';
+      final symbol = splashProvider.myCurrency?.symbol ?? '\$';
+      int decimal = config?.decimalPointSettings ?? 1;
 
-    return '${inRight ? '' : Provider.of<SplashController>(context, listen: false).myCurrency!.symbol}'
-        '${(singleCurrency? price : price!)!
-        .toStringAsFixed(Provider.of<SplashController>(context,listen: false).configModel!.decimalPointSettings??1).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}'
-        '${inRight ? Provider.of<SplashController>(context, listen: false).myCurrency!.symbol : ''}';
+      String formattedPrice = price
+          .toStringAsFixed(decimal)
+          .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},');
+
+      return inRight ? '$formattedPrice$symbol' : '$symbol$formattedPrice';
+    } catch (_) {
+      return price.toStringAsFixed(2);
+    }
   }
 
   static String showCurrencyCode(BuildContext context, String amount) {
-    final splashProvider = Provider.of<SplashController>(context, listen: false);
+    try {
+      final splashProvider = Provider.of<SplashController>(context, listen: false);
+      bool inRight = splashProvider.configModel?.currencySymbolPosition == 'right';
+      String symbol = splashProvider.myCurrency?.symbol ?? '\$';
 
-    bool inRight = splashProvider.configModel!.currencySymbolPosition == 'right';
-    String symbol = splashProvider.myCurrency!.symbol ?? '\$';
-
-    return inRight ? '$amount$symbol' : '$symbol$amount';
+      return inRight ? '$amount$symbol' : '$symbol$amount';
+    } catch (_) {
+      return '\$$amount';
+    }
   }
 
-  static String longToShortPrice(double amount, {bool withDecimalPoint = true}){
+  static String longToShortPrice(double amount, {bool withDecimalPoint = true}) {
     int decimalPoint = withDecimalPoint ? 2 : 0;
 
     if (amount.abs() >= 1e12) {

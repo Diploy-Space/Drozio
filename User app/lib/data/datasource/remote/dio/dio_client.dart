@@ -27,8 +27,12 @@ class DioClient {
       print("NNNN $token");
     }
     dio = dioC ?? Dio();
+    String formattedBaseUrl = baseUrl.trim();
+    if (formattedBaseUrl.isNotEmpty && !formattedBaseUrl.startsWith('http://') && !formattedBaseUrl.startsWith('https://')) {
+      formattedBaseUrl = 'https://$formattedBaseUrl';
+    }
     dio
-      ?..options.baseUrl = baseUrl
+      ?..options.baseUrl = formattedBaseUrl
       ..options.connectTimeout = const Duration(seconds: 60)
       ..options.receiveTimeout = const Duration(seconds: 60)
       ..httpClientAdapter

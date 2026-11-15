@@ -14,7 +14,6 @@ import 'package:sixvalley_vendor_app/common/basewidgets/custom_button_widget.dar
 import 'package:sixvalley_vendor_app/common/basewidgets/custom_snackbar_widget.dart';
 import 'package:sixvalley_vendor_app/common/basewidgets/textfeild/custom_text_feild_widget.dart';
 
-import '../../../main.dart';
 
 class AddEmergencyContactWidget extends StatefulWidget {
   final ContactList? contactList;
@@ -26,20 +25,35 @@ class AddEmergencyContactWidget extends StatefulWidget {
 }
 
 class _AddEmergencyContactWidgetState extends State<AddEmergencyContactWidget> {
-  String? _countryDialCode = CountryCodeHelper.getCountryCodebyCode(Provider.of<SplashController>(Get.context!, listen: false).configModel!.countryCode)!;
-  TextEditingController contactNameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  FocusNode nameFocus = FocusNode();
-  FocusNode phoneFocus = FocusNode();
+  String? _countryDialCode = "+880";
+  final TextEditingController contactNameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final FocusNode nameFocus = FocusNode();
+  final FocusNode phoneFocus = FocusNode();
 
   @override
   void initState() {
+    super.initState();
+    try {
+      final code = Provider.of<SplashController>(context, listen: false).configModel?.countryCode;
+      _countryDialCode = CountryCodeHelper.getCountryCodebyCode(code ?? '') ?? '+880';
+    } catch (_) {
+      _countryDialCode = '+880';
+    }
     if(widget.contactList != null){
       _countryDialCode = widget.contactList!.countryCode ?? _countryDialCode;
       contactNameController.text = widget.contactList!.name ?? '';
       phoneController.text = widget.contactList!.phone ?? '';
     }
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    contactNameController.dispose();
+    phoneController.dispose();
+    nameFocus.dispose();
+    phoneFocus.dispose();
+    super.dispose();
   }
 
   @override

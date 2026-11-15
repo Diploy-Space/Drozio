@@ -38,11 +38,21 @@ class DateConverter {
   }
 
   static DateTime dateTimeStringToDate(String dateTime) {
-    return DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime);
+    return DateTime.tryParse(dateTime) ?? (DateFormat('yyyy-MM-dd HH:mm:ss').tryParse(dateTime) ?? DateTime.now());
   }
 
   static DateTime isoStringToLocalDate(String dateTime) {
-    return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').parse(dateTime,true).toLocal();
+    final parsed = DateTime.tryParse(dateTime);
+    if (parsed != null) return parsed.toLocal();
+    try {
+      return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').parse(dateTime, true).toLocal();
+    } catch (_) {
+      try {
+        return DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime).toLocal();
+      } catch (_) {
+        return DateTime.now();
+      }
+    }
   }
 
   static String isoStringToLocalString(String dateTime) {
@@ -124,7 +134,7 @@ class DateConverter {
   }
 
   static String toLocalFormattedDateTime(String dateTime) {
-    final localDateTime = DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').parse(dateTime, true).toLocal();
+    final localDateTime = DateTime.tryParse(dateTime)?.toLocal() ?? isoStringToLocalDate(dateTime);
     return DateFormat('dd MMM, yyyy | h:mm a').format(localDateTime);
   }
 
@@ -132,8 +142,9 @@ class DateConverter {
     return DateFormat('dd-MMM-yyyy hh:mm a').format(isoStringToLocalDate(dateTime));
   }
 
-  static String dateStringMonthYear(DateTime ? dateTime) {
-    return DateFormat('d MMM,y').format(dateTime!);
+  static String dateStringMonthYear(DateTime? dateTime) {
+    if (dateTime == null) return '';
+    return DateFormat('d MMM,y').format(dateTime);
   }
 
   static String convert24HourTimeTo12HourTimeWithDay(DateTime time, bool isToday) {
@@ -191,8 +202,9 @@ class DateConverter {
   }
 
 
-  static int countDays(DateTime ? dateTime) {
-    final startDate = dateTime!;
+  static int countDays(DateTime? dateTime) {
+    if (dateTime == null) return 0;
+    final startDate = dateTime;
     final endDate = DateTime.now();
     final difference = endDate.difference(startDate).inDays;
     return difference;
@@ -246,21 +258,22 @@ class DateConverter {
 
   static String compareDates(String inputDate) {
     DateTime currentDate = DateTime.now();
-    DateTime parsedDate = DateTime.parse(inputDate).toLocal();
+    DateTime? parsedDate = DateTime.tryParse(inputDate)?.toLocal();
+    if (parsedDate == null) return inputDate;
 
     Duration difference = currentDate.difference(parsedDate);
     int hoursDifference = difference.inHours;
     int daysDifference = difference.inDays;
 
-
+    final context = Get.context;
     if (hoursDifference < 1) {
       return DateFormat('hh:mm a').format(parsedDate);
     } else if (hoursDifference >= 1 && hoursDifference <= 23) {
-      return '$hoursDifference ${getTranslated("hr_ago", Get.context!)}';
+      return context != null ? '$hoursDifference ${getTranslated("hr_ago", context)}' : '$hoursDifference hr ago';
     } else if (daysDifference == 1) {
-      return '${getTranslated("yesterday", Get.context!)}';
+      return context != null ? '${getTranslated("yesterday", context)}' : 'yesterday';
     } else if (daysDifference >= 2 && daysDifference <= 7) {
-      return '$daysDifference ${getTranslated("days_ago", Get.context!)}';
+      return context != null ? '$daysDifference ${getTranslated("days_ago", context)}' : '$daysDifference days ago';
     } else {
       return DateFormat('MM/dd/yyyy').format(parsedDate);
     }

@@ -270,6 +270,23 @@ class EditAddressScreenState extends State<EditAddressScreen> {
     );
   }
 
+  @override
+  void dispose() {
+    _contactPersonNameController.dispose();
+    _contactPersonEmailController.dispose();
+    _contactPersonNumberController.dispose();
+    _cityController.dispose();
+    _zipCodeController.dispose();
+    _addressNode.dispose();
+    _nameNode.dispose();
+    _emailNode.dispose();
+    _numberNode.dispose();
+    _cityNode.dispose();
+    _zipNode.dispose();
+    _controller?.dispose();
+    super.dispose();
+  }
+
 }
 
 enum Address {shipping, billing }

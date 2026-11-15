@@ -46,6 +46,24 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
+  @override
+  void dispose() {
+    _fNameFocus.dispose();
+    _lNameFocus.dispose();
+    _emailFocus.dispose();
+    _phoneFocus.dispose();
+    _addressFocus.dispose();
+    _passwordFocus.dispose();
+    _confirmPasswordFocus.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   bool isMailChanged = false;
   bool isPhoneChanged = false;
 

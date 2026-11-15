@@ -29,8 +29,9 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
 
   @override
   void dispose() {
+    _controller?.dispose();
+    _locationController.dispose();
     super.dispose();
-    _controller!.dispose();
   }
 
   void _openSearchDialog(BuildContext context, GoogleMapController? mapController) async {

@@ -27,6 +27,13 @@ class _EmergencyContactScreenState extends State<EmergencyContactScreen> {
     super.initState();
   }
   @override
+  void dispose() {
+    scrollController.dispose();
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWidget(title: getTranslated('emergency_contact', context),isBackButtonExist: true,),

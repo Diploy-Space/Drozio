@@ -17,14 +17,25 @@ class DateConverter {
   }
 
   static DateTime convertStringToDatetime(String dateTime) {
-    return DateFormat("yyyy-MM-dd hh:mm:ss").parse(dateTime);
+    return DateTime.tryParse(dateTime)?.toLocal() ?? (DateFormat("yyyy-MM-dd hh:mm:ss").tryParse(dateTime)?.toLocal() ?? DateTime.now());
   }
-  static String dateStringMonthYear(DateTime ? dateTime) {
-    return DateFormat('d MMM,y').format(dateTime!);
+  static String dateStringMonthYear(DateTime? dateTime) {
+    if (dateTime == null) return '';
+    return DateFormat('d MMM,y').format(dateTime);
   }
 
   static DateTime isoStringToLocalDate(String dateTime) {
-    return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').parse(dateTime,true).toLocal();
+    final parsed = DateTime.tryParse(dateTime);
+    if (parsed != null) return parsed.toLocal();
+    try {
+      return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').parse(dateTime, true).toLocal();
+    } catch (_) {
+      try {
+        return DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime).toLocal();
+      } catch (_) {
+        return DateTime.now();
+      }
+    }
   }
 
   static String localDateToIsoStringAMPM(DateTime dateTime) {
@@ -64,26 +75,30 @@ class DateConverter {
   }
 
   static DateTime isoUtcStringToLocalDate(String dateTime) {
-    return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').parse(dateTime, true).toLocal();
+    return isoStringToLocalDate(dateTime);
   }
 
   static String dateFormatForWalletBonus(String dateTime) {
     return DateFormat('dd MMM, yyyy').format(isoStringToLocalDate(dateTime));
   }
   static String dateTimeStringToDateTime(String dateTime) {
-    return DateFormat('dd MMM, yyyy').format(DateFormat('yyyy-MM-ddTHH:mm:ss').parse(dateTime));
+    final dt = DateTime.tryParse(dateTime) ?? DateFormat('yyyy-MM-ddTHH:mm:ss').tryParse(dateTime) ?? DateTime.now();
+    return DateFormat('dd MMM, yyyy').format(dt.toLocal());
   }
 
   static String dateTimeStringToDateAndTime(String dateTime) {
-    return DateFormat('hh:mm a, dd MMM yyyy').format(DateFormat('yyyy-MM-ddTHH:mm:ss').parse(dateTime));
+    final dt = DateTime.tryParse(dateTime) ?? DateFormat('yyyy-MM-ddTHH:mm:ss').tryParse(dateTime) ?? DateTime.now();
+    return DateFormat('hh:mm a, dd MMM yyyy').format(dt.toLocal());
   }
 
   static String dateTimeStringToMonthDateAndTime(String dateTime) {
-    return DateFormat('MMMM d, yyyy').format(DateFormat('yyyy-MM-ddTHH:mm:ss').parse(dateTime));
+    final dt = DateTime.tryParse(dateTime) ?? DateFormat('yyyy-MM-ddTHH:mm:ss').tryParse(dateTime) ?? DateTime.now();
+    return DateFormat('MMMM d, yyyy').format(dt.toLocal());
   }
 
   static String refundDateTime(String dateTime) {
-    return DateFormat('dd MMM yyyy').format(DateFormat('yyyy-MM-ddTHH:mm:ss').parse(dateTime));
+    final dt = DateTime.tryParse(dateTime) ?? DateFormat('yyyy-MM-ddTHH:mm:ss').tryParse(dateTime) ?? DateTime.now();
+    return DateFormat('dd MMM yyyy').format(dt.toLocal());
   }
 
   static String estimatedDateYear(DateTime dateTime) {
@@ -160,28 +175,30 @@ class DateConverter {
 
   static String compareDates(String inputDate) {
     DateTime currentDate = DateTime.now();
-    DateTime parsedDate = DateTime.parse(inputDate).toLocal();
+    DateTime? parsedDate = DateTime.tryParse(inputDate)?.toLocal();
+    if (parsedDate == null) return inputDate;
 
     Duration difference = currentDate.difference(parsedDate);
     int hoursDifference = difference.inHours;
     int daysDifference = difference.inDays;
 
-
+    final context = Get.context;
     if (hoursDifference < 1) {
       return DateFormat('hh:mm a').format(parsedDate);
     } else if (hoursDifference >= 1 && hoursDifference <= 23) {
-      return '$hoursDifference ${getTranslated("hr_ago", Get.context!)}';
+      return context != null ? '$hoursDifference ${getTranslated("hr_ago", context)}' : '$hoursDifference hr ago';
     } else if (daysDifference == 1) {
-      return '${getTranslated("yesterday", Get.context!)}';
+      return context != null ? '${getTranslated("yesterday", context)}' : 'yesterday';
     } else if (daysDifference >= 2 && daysDifference <= 7) {
-      return '$daysDifference ${getTranslated("days_ago", Get.context!)}';
+      return context != null ? '$daysDifference ${getTranslated("days_ago", context)}' : '$daysDifference days ago';
     } else {
       return DateFormat('MM/dd/yyyy').format(parsedDate);
     }
   }
 
-  static int countDays(DateTime ? dateTime) {
-    final startDate = dateTime!;
+  static int countDays(DateTime? dateTime) {
+    if (dateTime == null) return 0;
+    final startDate = dateTime;
     final endDate = DateTime.now();
     final difference = endDate.difference(startDate).inDays;
     return difference;

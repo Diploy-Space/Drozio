@@ -10,7 +10,7 @@ class AppConstants {
   static const int imageQuality = 100;
 
 
-  static const String baseUrl = 'YOUR_BASE_URL_HERE';
+  static const String baseUrl = 'https://demo.drozio.com';
 
   static const String loginUri = '/api/v6/seller/auth/login';
   static const String configUri = '/api/v6/config';

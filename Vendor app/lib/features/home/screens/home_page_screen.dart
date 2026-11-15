@@ -238,6 +238,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 }
 
 
