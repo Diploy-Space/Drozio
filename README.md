@@ -1,10 +1,6 @@
 # Drozio — Enterprise Multi-Vendor E-Commerce Platform
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Diploy-Space/Drozio/main/User%20app/assets/image/app_logo.png" alt="Drozio Logo" width="120" onerror="this.style.display='none'"/>
-</p>
-
-<p align="center">
   <b>A comprehensive, high-performance, and scalable multi-vendor e-commerce platform.</b><br/>
   Featuring a Flutter Consumer App, Flutter Vendor Management App with POS, and a robust Laravel Admin & Web Management Portal.
 </p>
