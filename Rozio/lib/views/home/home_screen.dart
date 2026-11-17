@@ -4,7 +4,18 @@ import '../../core/theme/app_colors.dart';
 import '../../data/models/product_model.dart';
 import '../../providers/cart_provider.dart';
 import '../../providers/location_provider.dart';
+import '../brands/brands_screen.dart';
+import '../categories/categories_screen.dart';
+import '../deals/clearance_sale_screen.dart';
+import '../deals/featured_products_screen.dart';
+import '../deals/first_order_screen.dart';
+import '../deals/flash_deal_screen.dart';
+import '../notifications/notifications_screen.dart';
+import '../onboarding/pincode_location_screen.dart';
 import '../product/product_detail_sheet.dart';
+import '../search/search_screen.dart';
+import '../search/voice_search_sheet.dart';
+import '../store/top_stores_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -55,105 +66,174 @@ class HomeScreen extends StatelessWidget {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            // Top App Bar
+            // Top App Bar: Brand, Location & Notification (Screen 01 & 23)
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
                 child: Row(
                   children: [
-                    // Brand & Location
+                    // Brand & Location Selector
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Rozio',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w900,
-                              color: AppColors.primary,
-                              letterSpacing: -0.5,
-                            ),
-                          ),
-                          const SizedBox(height: 2),
-                          Row(
-                            children: [
-                              const Icon(Icons.location_on, size: 14, color: AppColors.primary),
-                              const SizedBox(width: 4),
-                              Text(
-                                '${location.city} ${location.pincode}',
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.textPrimary,
-                                ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const PincodeLocationScreen()),
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Rozio',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w900,
+                                color: AppColors.primary,
+                                letterSpacing: -0.5,
                               ),
-                              const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: AppColors.textSecondary),
-                            ],
-                          ),
-                        ],
+                            ),
+                            const SizedBox(height: 2),
+                            Row(
+                              children: [
+                                const Icon(Icons.location_on, size: 14, color: AppColors.primary),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '${location.city} ${location.pincode}',
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.textPrimary,
+                                  ),
+                                ),
+                                const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: AppColors.textSecondary),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    // Notification Icon
-                    Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        color: AppColors.surfaceLight,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.border),
+                    // Notification Icon -> Screen 23
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const NotificationsScreen()),
+                        );
+                      },
+                      child: Container(
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          color: AppColors.surfaceLight,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: AppColors.border),
+                        ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            const Icon(Icons.notifications_none_rounded, color: AppColors.textPrimary, size: 22),
+                            Positioned(
+                              top: 10,
+                              right: 10,
+                              child: Container(
+                                width: 8,
+                                height: 8,
+                                decoration: const BoxDecoration(
+                                  color: AppColors.accent,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: const Icon(Icons.notifications_none_rounded, color: AppColors.textPrimary, size: 22),
                     ),
                   ],
                 ),
               ),
             ),
 
-            // Search Bar
+            // Search Bar -> Screen 03 & 04
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: AppColors.surfaceLight,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.search, color: AppColors.textSecondary, size: 22),
-                      const SizedBox(width: 10),
-                      const Expanded(
-                        child: Text(
-                          'Search products, brands and reels...',
-                          style: TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 14,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const SearchScreen()),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: AppColors.surfaceLight,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.search, color: AppColors.textSecondary, size: 22),
+                        const SizedBox(width: 10),
+                        const Expanded(
+                          child: Text(
+                            'Search products, brands and reels...',
+                            style: TextStyle(
+                              color: AppColors.textMuted,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.mic_none_rounded, color: AppColors.textSecondary, size: 20),
-                        onPressed: () {},
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(12),
+                        IconButton(
+                          icon: const Icon(Icons.mic_none_rounded, color: AppColors.textSecondary, size: 20),
+                          onPressed: () => VoiceSearchSheet.show(context),
                         ),
-                        child: const Text(
-                          'Search',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Text(
+                            'Search',
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
+
+            // Quick Category Shortcuts Row (Screen 15)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildQuickAction(context, Icons.category_outlined, 'Categories', () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => const CategoriesScreen()));
+                    }),
+                    _buildQuickAction(context, Icons.bolt_rounded, 'Flash Deal', () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => const FlashDealScreen()));
+                    }),
+                    _buildQuickAction(context, Icons.local_offer_outlined, 'Clearance', () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => const ClearanceSaleScreen()));
+                    }),
+                    _buildQuickAction(context, Icons.storefront_outlined, 'Top Stores', () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => const TopStoresScreen()));
+                    }),
+                    _buildQuickAction(context, Icons.stars_rounded, 'Brands', () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => const BrandsScreen()));
+                    }),
+                  ],
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 12)),
 
             // Stories / Live Reels Bar
             SliverToBoxAdapter(
@@ -174,81 +254,89 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            // Banner Carousel
+            // Banner Carousel -> Screen 18 First Order Exclusives
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                child: Container(
-                  height: 140,
-                  padding: const EdgeInsets.all(18),
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF1E40AF), Color(0xFF3B82F6)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const FirstOrderExclusivesScreen()),
+                    );
+                  },
+                  child: Container(
+                    height: 140,
+                    padding: const EdgeInsets.all(18),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF1E40AF), Color(0xFF3B82F6)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.2),
-                                borderRadius: BorderRadius.circular(8),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.2),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Text(
+                                  'SPECIAL REEL DEAL',
+                                  style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
+                                ),
                               ),
-                              child: const Text(
-                                'SPECIAL REEL DEAL',
-                                style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'Get \$5 Off With FIRST5',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w800,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Get 10% Extra Off',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w800,
+                              const SizedBox(height: 4),
+                              const Text(
+                                'Exclusive prices for your first order',
+                                style: TextStyle(color: Colors.white70, fontSize: 12),
                               ),
-                            ),
-                            const SizedBox(height: 4),
-                            const Text(
-                              'Use coupon REEL10 on orders over \$50',
-                              style: TextStyle(color: Colors.white70, fontSize: 12),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(14),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: const Text(
+                            'Claim',
+                            style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w800, fontSize: 13),
+                          ),
                         ),
-                        child: const Text(
-                          'Claim',
-                          style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w800, fontSize: 13),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
 
-            // Section Header
-            const SliverToBoxAdapter(
+            // Section Header: Trending in Reels -> Featured Products
+            SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(20, 16, 20, 12),
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Trending in Reels',
                       style: TextStyle(
                         fontSize: 18,
@@ -257,12 +345,20 @@ class HomeScreen extends StatelessWidget {
                         letterSpacing: -0.3,
                       ),
                     ),
-                    Text(
-                      'See all',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.primary,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const FeaturedProductsScreen()),
+                        );
+                      },
+                      child: const Text(
+                        'See all',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.primary,
+                        ),
                       ),
                     ),
                   ],
@@ -381,59 +477,61 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: 100)),
+            const SliverToBoxAdapter(child: SizedBox(height: 90)),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildStoryItem(String name, String imageUrl, bool isLive) {
-    return Container(
-      width: 76,
-      margin: const EdgeInsets.only(right: 12),
+  Widget _buildQuickAction(BuildContext context, IconData icon, String label, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
       child: Column(
         children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: isLive
-                      ? const LinearGradient(colors: [Color(0xFFEF4444), Color(0xFFF97316)])
-                      : const LinearGradient(colors: [AppColors.primary, Color(0xFF60A5FA)]),
-                ),
-                padding: const EdgeInsets.all(2.5),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(imageUrl),
-                ),
-              ),
-              if (isLive)
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFEF4444),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Text(
-                      'LIVE',
-                      style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w800),
-                    ),
-                  ),
-                ),
-            ],
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: AppColors.surfaceLight,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.border),
+            ),
+            child: Icon(icon, color: AppColors.primary, size: 22),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Text(
-            name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+            label,
             style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStoryItem(String title, String imageUrl, bool isLive) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 6),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: isLive ? AppColors.accent : AppColors.primary,
+                width: 2,
+              ),
+            ),
+            child: CircleAvatar(
+              radius: 28,
+              backgroundImage: NetworkImage(imageUrl),
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
           ),
         ],
       ),

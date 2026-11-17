@@ -9,7 +9,14 @@ class ReelProvider extends ChangeNotifier {
   int _currentReelIndex = 0;
 
   ReelTab get activeTab => _activeTab;
+  ReelTab get currentTab => _activeTab;
   int get currentReelIndex => _currentReelIndex;
+  int get activeReelIndex => _currentReelIndex;
+
+  void setTab(ReelTab tab) {
+    _activeTab = tab;
+    notifyListeners();
+  }
 
   final List<ReelModel> _reels = [
     ReelModel(
@@ -64,11 +71,6 @@ class ReelProvider extends ChangeNotifier {
 
   ReelModel? get currentReel =>
       _reels.isNotEmpty && _currentReelIndex < _reels.length ? _reels[_currentReelIndex] : null;
-
-  void setTab(ReelTab tab) {
-    _activeTab = tab;
-    notifyListeners();
-  }
 
   void setReelIndex(int index) {
     if (index >= 0 && index < _reels.length) {

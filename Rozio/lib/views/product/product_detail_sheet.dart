@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../data/models/product_model.dart';
 import '../../providers/cart_provider.dart';
+import '../checkout/checkout_address_screen.dart';
+import '../store/store_preview_sheet.dart';
+import 'product_detail_screen.dart';
 
 class ProductDetailSheet extends StatefulWidget {
   final ProductModel product;
@@ -109,18 +112,26 @@ class _ProductDetailSheetState extends State<ProductDetailSheet> {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  product.storeName,
-                                  style: const TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.textSecondary,
+                                GestureDetector(
+                                  onTap: () => StorePreviewSheet.show(context, product.storeName),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        product.storeName,
+                                        style: const TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.textSecondary,
+                                        ),
+                                      ),
+                                      if (product.isStoreVerified) ...[
+                                        const SizedBox(width: 4),
+                                        const Icon(Icons.verified, size: 14, color: AppColors.primary),
+                                      ],
+                                    ],
                                   ),
                                 ),
-                                if (product.isStoreVerified) ...[
-                                  const SizedBox(width: 4),
-                                  const Icon(Icons.verified, size: 14, color: AppColors.primary),
-                                ],
                                 const SizedBox(width: 8),
                                 const Icon(Icons.star, size: 14, color: Color(0xFFF59E0B)),
                                 const SizedBox(width: 3),
@@ -533,13 +544,9 @@ class _ProductDetailSheetState extends State<ProductDetailSheet> {
                               quantity: _quantity,
                             );
                             Navigator.pop(context);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Proceeding to checkout...'),
-                                duration: Duration(seconds: 2),
-                                behavior: SnackBarBehavior.floating,
-                                backgroundColor: Color(0xFF16A34A),
-                              ),
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => const CheckoutAddressScreen()),
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -558,6 +565,23 @@ class _ProductDetailSheetState extends State<ProductDetailSheet> {
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(height: 12),
+                Center(
+                  child: TextButton.icon(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => ProductDetailScreen(product: product)),
+                      );
+                    },
+                    icon: const Icon(Icons.open_in_new_rounded, size: 16, color: AppColors.primary),
+                    label: const Text(
+                      'View full product details',
+                      style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700, fontSize: 13),
+                    ),
+                  ),
                 ),
               ],
             ),

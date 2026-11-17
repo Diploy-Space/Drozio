@@ -28,4 +28,14 @@ class LocationProvider extends ChangeNotifier {
     _isLocationSet = true;
     notifyListeners();
   }
+
+  void setPincode(String code) {
+    _pincode = code;
+    notifyListeners();
+  }
+
+  void setCity(String city) {
+    _city = city;
+    notifyListeners();
+  }
 }

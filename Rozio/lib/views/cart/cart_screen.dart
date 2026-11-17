@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/cart_provider.dart';
+import '../checkout/checkout_address_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -104,28 +105,28 @@ class CartScreen extends StatelessWidget {
                             children: [
                               Text(
                                 item.product.storeName,
-                                style: const TextStyle(fontSize: 11, color: AppColors.textSecondary, fontWeight: FontWeight.w600),
+                                style: const TextStyle(fontSize: 11, color: AppColors.textMuted, fontWeight: FontWeight.w600),
                               ),
                               Text(
                                 item.product.title,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                                style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 '${item.selectedColor} · ${item.selectedEdition}',
-                                style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+                                style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 10),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '\$${item.totalPrice.toStringAsFixed(0)}',
-                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+                                    '\$${(item.product.price * item.quantity).toStringAsFixed(0)}',
+                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: AppColors.primary),
                                   ),
-                                  // Counter
+                                  // Quantity Counter
                                   Container(
                                     decoration: BoxDecoration(
                                       color: AppColors.surfaceLight,
@@ -133,24 +134,31 @@ class CartScreen extends StatelessWidget {
                                       border: Border.all(color: AppColors.border),
                                     ),
                                     child: Row(
-                                      mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        InkWell(
-                                          onTap: () => cart.updateQuantity(index, item.quantity - 1),
+                                        GestureDetector(
+                                          onTap: () {
+                                            if (item.quantity > 1) {
+                                              cart.updateQuantity(index, item.quantity - 1);
+                                            } else {
+                                              cart.removeItem(index);
+                                            }
+                                          },
                                           child: const Padding(
                                             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                            child: Icon(Icons.remove, size: 14),
+                                            child: Icon(Icons.remove, size: 16),
                                           ),
                                         ),
                                         Text(
                                           '${item.quantity}',
                                           style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
                                         ),
-                                        InkWell(
-                                          onTap: () => cart.updateQuantity(index, item.quantity + 1),
+                                        GestureDetector(
+                                          onTap: () {
+                                            cart.updateQuantity(index, item.quantity + 1);
+                                          },
                                           child: const Padding(
                                             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                            child: Icon(Icons.add, size: 14),
+                                            child: Icon(Icons.add, size: 16),
                                           ),
                                         ),
                                       ],
@@ -165,11 +173,11 @@ class CartScreen extends StatelessWidget {
                     ),
                   );
                 }),
-
                 const SizedBox(height: 16),
-                // Bill details
+
+                // Bill details Card
                 Container(
-                  padding: const EdgeInsets.all(18),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(18),
@@ -180,7 +188,7 @@ class CartScreen extends StatelessWidget {
                     children: [
                       const Text(
                         'Bill Details',
-                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),
                       ),
                       const SizedBox(height: 12),
                       Row(
@@ -214,27 +222,25 @@ class CartScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
 
-                // Pay Button
+                // Proceed to Checkout Button
                 SizedBox(
                   width: double.infinity,
                   height: 52,
                   child: ElevatedButton(
                     onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Order placed successfully! Delivery in 2 days.'),
-                          backgroundColor: Color(0xFF16A34A),
-                        ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const CheckoutAddressScreen()),
                       );
-                      cart.clearCart();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      elevation: 0,
                     ),
                     child: Text(
-                      'Pay \$${cart.subtotal.toStringAsFixed(0)}',
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 15),
+                      'Checkout · \$${cart.subtotal.toStringAsFixed(0)}',
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16),
                     ),
                   ),
                 ),

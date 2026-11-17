@@ -39,6 +39,15 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addCartItem(CartItemModel item) {
+    addItem(
+      product: item.product,
+      selectedColor: item.selectedColor,
+      selectedEdition: item.selectedEdition,
+      quantity: item.quantity,
+    );
+  }
+
   void updateQuantity(int index, int newQuantity) {
     if (index >= 0 && index < _items.length) {
       if (newQuantity <= 0) {
