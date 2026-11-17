@@ -34,6 +34,7 @@ import '../reels/shop_this_video_sheet.dart';
 import '../product/product_detail_sheet.dart';
 import '../product/offers_bottom_sheet.dart';
 import '../product/product_detail_screen.dart';
+import '../product/wholesale_tier_sheet.dart';
 import '../product/ratings_reviews_screen.dart';
 import '../product/questions_answers_screen.dart';
 import '../product/size_guide_sheet.dart';
@@ -205,6 +206,20 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
       onOpen: (ctx) => LoginBottomSheet.show(ctx),
     ),
     FigmaScreenItem(
+      badge: 'A11',
+      title: 'Log In · No Connection',
+      category: 'Auth',
+      description: 'Network offline error prompt with retry connection button',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const LoginNoConnectionScreen())),
+    ),
+    FigmaScreenItem(
+      badge: 'A12',
+      title: 'Log In · Session Expired',
+      category: 'Auth',
+      description: 'Session timeout security notice prompting re-login',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const SessionExpiredScreen())),
+    ),
+    FigmaScreenItem(
       badge: 'A13',
       title: 'Verify OTP',
       category: 'Auth',
@@ -226,6 +241,13 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
       onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const OtpVerificationScreen(phoneNumber: '9876543210'))),
     ),
     FigmaScreenItem(
+      badge: 'A16',
+      title: 'Verify OTP · Locked',
+      category: 'Auth',
+      description: 'Temporary lock after 3 failed attempts with recovery link',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const OtpLockedScreen())),
+    ),
+    FigmaScreenItem(
       badge: 'A17',
       title: 'Recover Account',
       category: 'Auth',
@@ -245,6 +267,13 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
       category: 'Auth',
       description: 'Enter new phone number to bind to account',
       onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const UpdateNewNumberScreen())),
+    ),
+    FigmaScreenItem(
+      badge: 'A20',
+      title: 'Recover · Verify New Number',
+      category: 'Auth',
+      description: 'Verify OTP on the new phone number to transfer account',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const VerifyNewNumberScreen(newPhoneNumber: '9876543210'))),
     ),
     FigmaScreenItem(
       badge: 'A21',
@@ -456,11 +485,25 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
       onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const ReelsScreen())),
     ),
     FigmaScreenItem(
+      badge: '27',
+      title: 'Following, Empty State',
+      category: 'Reels Video',
+      description: 'Zero following feed with creator suggestions and discover prompt',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const EmptyFollowingReelsScreen())),
+    ),
+    FigmaScreenItem(
       badge: '28',
       title: 'Live Stream Mode',
       category: 'Reels Video',
       description: 'Live merchant selling with real-time viewer stream',
       onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const ReelsScreen())),
+    ),
+    FigmaScreenItem(
+      badge: '29',
+      title: 'Paused, Sound On',
+      category: 'Reels Video',
+      description: 'Video paused overlay with audio indicator and tap to resume',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const PausedReelsScreen())),
     ),
     FigmaScreenItem(
       badge: '30',
@@ -493,6 +536,13 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
       onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => ProductDetailScreen(product: _sampleProduct))),
     ),
     FigmaScreenItem(
+      badge: '34',
+      title: 'Product Page · From Home',
+      category: 'Product',
+      description: 'Complete product experience navigated directly from the Home feed',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => ProductDetailScreen(product: _sampleProduct))),
+    ),
+    FigmaScreenItem(
       badge: '35',
       title: 'Ratings & Reviews',
       category: 'Product',
@@ -514,6 +564,13 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
       onOpen: (ctx) => SizeGuideSheet.show(ctx),
     ),
     FigmaScreenItem(
+      badge: '38',
+      title: 'Wholesale Tier Saving',
+      category: 'Product',
+      description: 'Tiered bulk pricing table with instant volume savings',
+      onOpen: (ctx) => WholesaleTierSheet.show(ctx, basePrice: 59.0),
+    ),
+    FigmaScreenItem(
       badge: '39',
       title: 'Compare 3 Products',
       category: 'Product',
@@ -526,6 +583,20 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
       category: 'Product',
       description: 'Quick address switcher from product page',
       onOpen: (ctx) => ChangeAddressSheet.show(ctx),
+    ),
+    FigmaScreenItem(
+      badge: '41',
+      title: 'Log In to Continue',
+      category: 'Product',
+      description: 'Contextual login prompt before adding item to wishlist or checkout',
+      onOpen: (ctx) => LoginBottomSheet.show(ctx),
+    ),
+    FigmaScreenItem(
+      badge: '42',
+      title: 'Verify OTP (Inline)',
+      category: 'Product',
+      description: 'Inline OTP verification before proceeding with transaction',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const OtpVerificationScreen(phoneNumber: '9876543210'))),
     ),
 
     // Bag & Cart
@@ -548,10 +619,17 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
     ),
     FigmaScreenItem(
       badge: '45',
-      title: 'Empty Bag State',
+      title: 'Empty Bag · From a Reel',
       category: 'Cart',
-      description: 'Friendly illustration with CTA to explore trending reels',
-      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const CartScreen())),
+      description: 'Empty bag state when opened directly from a shoppable reel',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const EmptyBagScreen())),
+    ),
+    FigmaScreenItem(
+      badge: '46',
+      title: 'Empty Bag · Cart Tab',
+      category: 'Cart',
+      description: 'Empty bag state on the main bottom navigation Cart tab',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const EmptyBagScreen())),
     ),
 
     // Checkout Flow
@@ -603,6 +681,13 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
       category: 'Checkout',
       description: 'Secure card number, expiry, CVV & RBI tokenization',
       onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const PayByCardScreen())),
+    ),
+    FigmaScreenItem(
+      badge: '54',
+      title: 'Pay with EMI',
+      category: 'Checkout',
+      description: 'Bank selection with 3, 6, 9, 12 month monthly installment calculation',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const EmiPaymentScreen(amount: 54.0))),
     ),
     FigmaScreenItem(
       badge: '55',
@@ -684,6 +769,13 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
       onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const CancelOrderScreen(orderId: '#ROZ-84920'))),
     ),
     FigmaScreenItem(
+      badge: '66',
+      title: 'Order Cancelled',
+      category: 'Orders & Help',
+      description: 'Confirmation notice with refund timing timeline',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const OrderCancelledScreen(orderId: 'ROZ-84920'))),
+    ),
+    FigmaScreenItem(
       badge: '67',
       title: 'Rate Your Purchase',
       category: 'Orders & Help',
@@ -696,6 +788,13 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
       category: 'Orders & Help',
       description: '7-day replacement pickup scheduler with courier time slot',
       onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const ReturnReplaceScreen(orderId: '#ROZ-84920'))),
+    ),
+    FigmaScreenItem(
+      badge: '69',
+      title: 'Return Requested',
+      category: 'Orders & Help',
+      description: 'Pickup scheduled status with 4-step return to refund timeline',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const ReturnRequestedScreen(orderId: 'ROZ-84920'))),
     ),
 
     // Stores & Merchants

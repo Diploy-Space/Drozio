@@ -264,3 +264,106 @@ class _ReturnReplaceScreenState extends State<ReturnReplaceScreen> {
     );
   }
 }
+
+// Screen 69: Return Requested Screen
+class ReturnRequestedScreen extends StatelessWidget {
+  final String orderId;
+
+  const ReturnRequestedScreen({super.key, this.orderId = 'ROZ-84920'});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.close_rounded, color: AppColors.textPrimary),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text('Return status', style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold)),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF10B981).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                children: const [
+                  Icon(Icons.check_circle_rounded, color: Color(0xFF10B981), size: 28),
+                  SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Return request received', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: Color(0xFF10B981))),
+                        SizedBox(height: 2),
+                        Text('Doorstep pickup scheduled for tomorrow by 4 PM', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text('Return Timeline', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+            const SizedBox(height: 16),
+            _buildStep('Return Requested', 'Today, 10:30 AM', isDone: true, isCurrent: false),
+            _buildStep('Doorstep Pickup', 'Tomorrow by 4:00 PM', isDone: false, isCurrent: true),
+            _buildStep('Quality Verification', 'Expected within 24h of pickup', isDone: false, isCurrent: false),
+            _buildStep('Refund Processed', 'Instant to original payment method', isDone: false, isCurrent: false),
+            const Spacer(),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                ),
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Back to Orders', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Widget _buildStep(String title, String time, {required bool isDone, required bool isCurrent}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          children: [
+            CircleAvatar(
+              radius: 8,
+              backgroundColor: isDone
+                  ? const Color(0xFF10B981)
+                  : (isCurrent ? AppColors.primary : AppColors.border),
+            ),
+            Container(width: 2, height: 36, color: isDone ? const Color(0xFF10B981) : AppColors.border),
+          ],
+        ),
+        const SizedBox(width: 12),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: TextStyle(fontWeight: isCurrent || isDone ? FontWeight.w800 : FontWeight.w500, fontSize: 13)),
+            const SizedBox(height: 2),
+            Text(time, style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+          ],
+        ),
+      ],
+    );
+  }
+}
+

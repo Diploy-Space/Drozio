@@ -396,6 +396,181 @@ class _GiftCardScreenState extends State<GiftCardScreen> {
   }
 }
 
+// Screen 54: Pay with EMI Screen
+class EmiPaymentScreen extends StatefulWidget {
+  final double amount;
+
+  const EmiPaymentScreen({super.key, this.amount = 54.0});
+
+  @override
+  State<EmiPaymentScreen> createState() => _EmiPaymentScreenState();
+}
+
+class _EmiPaymentScreenState extends State<EmiPaymentScreen> {
+  String _selectedBank = 'HDFC Bank';
+  int _selectedTenureMonths = 3;
+
+  final List<String> _banks = [
+    'HDFC Bank',
+    'ICICI Bank',
+    'State Bank of India',
+    'Axis Bank',
+    'Kotak Mahindra Bank',
+  ];
+
+  final List<Map<String, dynamic>> _plans = [
+    {'months': 3, 'rate': 14.0, 'monthly': 18.63, 'interest': 1.89},
+    {'months': 6, 'rate': 14.5, 'monthly': 9.38, 'interest': 2.28},
+    {'months': 9, 'rate': 15.0, 'monthly': 6.38, 'interest': 3.42},
+    {'months': 12, 'rate': 15.0, 'monthly': 4.88, 'interest': 4.56},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedPlan = _plans.firstWhere((p) => p['months'] == _selectedTenureMonths);
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text('Pay with EMI', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 17, color: AppColors.textPrimary)),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textPrimary, size: 20),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(20),
+                children: [
+                  // Bank Selection
+                  const Text('Select your credit card bank', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.textPrimary)),
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    decoration: BoxDecoration(
+                      color: AppColors.surfaceLight,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: _selectedBank,
+                        isExpanded: true,
+                        icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.textPrimary),
+                        items: _banks.map((b) => DropdownMenuItem(value: b, child: Text(b, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)))).toList(),
+                        onChanged: (val) {
+                          if (val != null) setState(() => _selectedBank = val);
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Plans
+                  const Text('Choose EMI tenure', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.textPrimary)),
+                  const SizedBox(height: 10),
+                  ..._plans.map((p) {
+                    final isSel = p['months'] == _selectedTenureMonths;
+                    return GestureDetector(
+                      onTap: () => setState(() => _selectedTenureMonths = p['months'] as int),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: isSel ? const Color(0xFFEFF6FF) : Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: isSel ? AppColors.primary : AppColors.border, width: isSel ? 1.5 : 1),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              isSel ? Icons.radio_button_checked : Icons.radio_button_off,
+                              color: isSel ? AppColors.primary : AppColors.textMuted,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '\$${(p['monthly'] as double).toStringAsFixed(2)} / month',
+                                    style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 15, color: AppColors.textPrimary),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    '${p['months']} months @ ${p['rate']}% p.a. · Interest: \$${(p['interest'] as double).toStringAsFixed(2)}',
+                                    style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              'Total: \$${(widget.amount + (p['interest'] as double)).toStringAsFixed(2)}',
+                              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: AppColors.textPrimary),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
+
+            // Footer
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, -4)),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('Monthly installment', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                      const SizedBox(height: 2),
+                      Text(
+                        '\$${(selectedPlan['monthly'] as double).toStringAsFixed(2)}/mo',
+                        style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: AppColors.primary),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const PayByCardScreen()),
+                      );
+                    },
+                    child: const Text('Continue to Card', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 14)),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // Screen 58: Payment Failed Screen
 class PaymentFailedScreen extends StatelessWidget {
   const PaymentFailedScreen({super.key});

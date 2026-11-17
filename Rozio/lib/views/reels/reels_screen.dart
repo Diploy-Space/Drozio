@@ -683,3 +683,139 @@ class _ReelsScreenState extends State<ReelsScreen> with SingleTickerProviderStat
     );
   }
 }
+
+// Screen 27: Following, empty state
+class EmptyFollowingReelsScreen extends StatelessWidget {
+  const EmptyFollowingReelsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF0F172A),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 20),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text('Following', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.person_add_alt_1_rounded, size: 54, color: Colors.white70),
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'No creators followed yet',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Follow stores and video creators to see their exclusive drops and live shopping events here.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, color: Colors.white60, height: 1.4),
+              ),
+              const SizedBox(height: 28),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                ),
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Explore For You Reels', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 14)),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Screen 29: Paused, sound on
+class PausedReelsScreen extends StatelessWidget {
+  const PausedReelsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.network(
+            'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&auto=format&fit=crop',
+            fit: BoxFit.cover,
+          ),
+          Container(
+            color: Colors.black.withValues(alpha: 0.45),
+          ),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  const Spacer(),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.6),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.volume_up_rounded, color: Colors.white, size: 16),
+                        SizedBox(width: 6),
+                        Text('Sound on', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Center(
+            child: Container(
+              width: 72,
+              height: 72,
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.65),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 44),
+            ),
+          ),
+          Positioned(
+            left: 20,
+            bottom: 40,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('Pro Wireless Earbuds ANC', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800)),
+                SizedBox(height: 4),
+                Text('Paused · Tap anywhere to resume playback', style: TextStyle(color: Colors.white70, fontSize: 13)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
