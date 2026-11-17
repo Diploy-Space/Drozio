@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/location_provider.dart';
+import '../catalog/figma_screen_catalog.dart';
 import '../main_navigation_screen.dart';
 
 class PincodeLocationScreen extends StatefulWidget {
@@ -102,18 +103,54 @@ class _PincodeLocationScreenState extends State<PincodeLocationScreen> {
                     ),
                   ),
                   Positioned(
-                    top: 16,
+                    top: 12,
                     right: 16,
-                    child: TextButton(
-                      onPressed: _navigateToHome,
-                      child: const Text(
-                        'Skip',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextButton(
+                          onPressed: _navigateToHome,
+                          child: const Text(
+                            'Skip',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(width: 6),
+                        GestureDetector(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const FigmaScreenCatalogScreen()),
+                          ),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFFFF3366), Color(0xFFFF6B00)],
+                              ),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.dashboard_customize_rounded, color: Colors.white, size: 14),
+                                SizedBox(width: 4),
+                                Text(
+                                  '95 Screens',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../core/theme/app_colors.dart';
 import '../providers/cart_provider.dart';
 import 'cart/cart_screen.dart';
+import 'categories/categories_screen.dart';
 import 'home/home_screen.dart';
 import 'orders/orders_screen.dart';
 import 'reels/reels_screen.dart';
@@ -19,7 +20,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<Widget> _screens = const [
     HomeScreen(),
-    _PlaceholderCategoriesScreen(),
+    CategoriesScreen(),
     ReelsScreen(),
     CartScreen(),
     OrdersScreen(),
@@ -139,61 +140,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             ),
           ),
       ],
-    );
-  }
-}
-
-class _PlaceholderCategoriesScreen extends StatelessWidget {
-  const _PlaceholderCategoriesScreen();
-
-  @override
-  Widget build(BuildContext context) {
-    final categories = [
-      {'name': 'Electronics', 'icon': Icons.headphones_rounded},
-      {'name': 'Mobiles', 'icon': Icons.phone_android_rounded},
-      {'name': 'Fashion', 'icon': Icons.checkroom_rounded},
-      {'name': 'Home Living', 'icon': Icons.chair_rounded},
-      {'name': 'Beauty & Care', 'icon': Icons.spa_rounded},
-      {'name': 'Gaming', 'icon': Icons.sports_esports_rounded},
-    ];
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Discover Categories', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 14,
-          mainAxisSpacing: 14,
-          childAspectRatio: 1.3,
-        ),
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          final cat = categories[index];
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: AppColors.border),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(cat['icon'] as IconData, size: 36, color: AppColors.primary),
-                const SizedBox(height: 8),
-                Text(
-                  cat['name'] as String,
-                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: AppColors.textPrimary),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
     );
   }
 }
