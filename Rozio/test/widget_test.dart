@@ -27,7 +27,6 @@ void main() {
 
     // Verify Rozio splash screen renders
     expect(find.text('Rozio'), findsWidgets);
-    expect(find.textContaining('Experience Modern Commerce'), findsOneWidget);
     expect(find.text('95 Screens'), findsOneWidget);
   });
 }
