@@ -4,6 +4,7 @@ import '../../data/models/product_model.dart';
 import '../../data/models/cart_item_model.dart';
 
 // Import all screens
+import '../onboarding/splash_and_walkthrough_screens.dart';
 import '../onboarding/language_selection_screen.dart';
 import '../onboarding/pincode_location_screen.dart';
 import '../onboarding/location_flow_screens.dart';
@@ -107,6 +108,36 @@ class _FigmaScreenCatalogScreenState extends State<FigmaScreenCatalogScreen> {
   };
 
   late final List<FigmaScreenItem> _allScreens = [
+    // Splash & Onboarding Walkthrough (Artboard 119:14531, 117:12381, 117:12411, 117:12442)
+    FigmaScreenItem(
+      badge: '00',
+      title: 'Rozio Brand Splash',
+      category: 'Onboarding',
+      description: 'Clean white background with iconic Rozio logo and animated progress pill (Artboard 119:14531)',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const RozioSplashScreen(autoNavigate: false))),
+    ),
+    FigmaScreenItem(
+      badge: 'S1',
+      title: 'Rozio · Discover Splash',
+      category: 'Onboarding',
+      description: 'Onboarding Slide 1: Discover great products daily with video stories (Artboard 117:12381)',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const RozioOnboardingWalkthroughScreen(initialPage: 0))),
+    ),
+    FigmaScreenItem(
+      badge: 'S2',
+      title: 'Rozio · Wholesale Splash',
+      category: 'Onboarding',
+      description: 'Onboarding Slide 2: Save big on wholesale & bulk deals from manufacturers (Artboard 117:12411)',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const RozioOnboardingWalkthroughScreen(initialPage: 1))),
+    ),
+    FigmaScreenItem(
+      badge: 'S3',
+      title: 'Rozio · Fast Delivery Splash',
+      category: 'Onboarding',
+      description: 'Onboarding Slide 3: Express doorstep delivery with real-time live map tracking (Artboard 117:12442)',
+      onOpen: (ctx) => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const RozioOnboardingWalkthroughScreen(initialPage: 2))),
+    ),
+
     // Onboarding & Language
     FigmaScreenItem(
       badge: 'A02',

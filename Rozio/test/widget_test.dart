@@ -25,19 +25,9 @@ void main() {
       ),
     );
 
-    // Verify language selection screen renders
-    expect(find.textContaining('Choose your language'), findsOneWidget);
-    expect(find.text('Rozio Global'), findsOneWidget);
-    expect(find.text('हिन्दी'), findsOneWidget);
-    expect(find.text('বাংলা'), findsOneWidget);
-    expect(find.textContaining('Continue in English'), findsOneWidget);
-
-    // Tap continue to go to Pincode screen
-    await tester.tap(find.textContaining('Continue in English'));
-    await tester.pumpAndSettle();
-
-    // Verify Pincode screen
-    expect(find.text('Enter your pincode'), findsOneWidget);
-    expect(find.text('Continue'), findsOneWidget);
+    // Verify Rozio splash screen renders
+    expect(find.text('Rozio'), findsWidgets);
+    expect(find.textContaining('Experience Modern Commerce'), findsOneWidget);
+    expect(find.text('95 Screens'), findsOneWidget);
   });
 }

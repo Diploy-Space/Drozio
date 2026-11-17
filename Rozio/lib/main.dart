@@ -5,7 +5,7 @@ import 'core/theme/app_theme.dart';
 import 'providers/cart_provider.dart';
 import 'providers/location_provider.dart';
 import 'providers/reel_provider.dart';
-import 'views/onboarding/language_selection_screen.dart';
+import 'views/onboarding/splash_and_walkthrough_screens.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +37,7 @@ class RozioApp extends StatelessWidget {
       title: 'Rozio',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const LanguageSelectionScreen(),
+      home: const RozioSplashScreen(),
     );
   }
 }
