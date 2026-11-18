@@ -53,7 +53,7 @@ class _CheckoutAddressScreenState extends State<CheckoutAddressScreen> {
           // Step Progress Bar (1: Address, 2: Summary, 3: Payment)
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.surfaceLight,
               border: Border(bottom: BorderSide(color: AppColors.border)),
             ),
@@ -190,7 +190,7 @@ class _CheckoutAddressScreenState extends State<CheckoutAddressScreen> {
           // Bottom Action
           Container(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(top: BorderSide(color: AppColors.border)),
             ),

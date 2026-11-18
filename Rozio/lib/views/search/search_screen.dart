@@ -240,8 +240,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         children: [
                           Container(
                             padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
                                 colors: [AppColors.primary, Color(0xFF8B5CF6)],
                               ),
                               shape: BoxShape.circle,
@@ -295,7 +295,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   avatar: const Icon(Icons.history_rounded, size: 16, color: AppColors.textSecondary),
                   label: Text(term),
                   backgroundColor: AppColors.surfaceLight,
-                  side: BorderSide(color: AppColors.border),
+                  side: const BorderSide(color: AppColors.border),
                   onPressed: () => _submitSearch(term),
                 )).toList(),
               ),
@@ -367,9 +367,9 @@ class _SearchScreenState extends State<SearchScreen> {
           const SizedBox(height: 20),
 
           // Trending Today Ranked List
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: const Text(
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
               'Trending today',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
             ),

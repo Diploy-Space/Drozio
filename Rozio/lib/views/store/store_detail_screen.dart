@@ -150,8 +150,8 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> with SingleTicker
                               const SizedBox(height: 2),
                               const Text('194 products · 12.4k followers', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
                               const SizedBox(height: 4),
-                              Row(
-                                children: const [
+                              const Row(
+                                children: [
                                   Icon(Icons.star_rounded, size: 16, color: Colors.amber),
                                   SizedBox(width: 2),
                                   Text('4.75', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),

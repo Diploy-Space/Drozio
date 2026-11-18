@@ -1,0 +1,36 @@
+name: Flutter CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  analyze_and_test:
+    name: Analyze & Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Verify static analysis
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Run unit & widget test suite
+        run: flutter test --coverage
+
+      - name: Build Web release bundle
+        run: flutter build web --release --no-pub

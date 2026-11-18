@@ -200,7 +200,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
           // Filter Bar
           Container(
             height: 48,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(bottom: BorderSide(color: AppColors.border)),
             ),
@@ -432,7 +432,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                     label: Text(kw),
                     labelStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.primary),
                     backgroundColor: AppColors.surfaceLight,
-                    side: BorderSide(color: AppColors.border),
+                    side: const BorderSide(color: AppColors.border),
                     onPressed: () {
                       setState(() => _activeQuery = kw);
                     },
@@ -631,7 +631,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                     label: Text(word),
                     labelStyle: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600),
                     backgroundColor: Colors.white,
-                    side: BorderSide(color: AppColors.border),
+                    side: const BorderSide(color: AppColors.border),
                     onPressed: () => setState(() => _activeQuery = word),
                   )).toList(),
                 ),
@@ -725,7 +725,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                 child: ActionChip(
                   label: Text(cat),
                   backgroundColor: AppColors.surfaceLight,
-                  side: BorderSide(color: AppColors.border),
+                  side: const BorderSide(color: AppColors.border),
                   onPressed: () => setState(() => _activeQuery = cat.toLowerCase()),
                 ),
               )).toList(),

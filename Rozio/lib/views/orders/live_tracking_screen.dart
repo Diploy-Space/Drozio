@@ -157,10 +157,10 @@ class LiveTrackingScreen extends StatelessWidget {
                         backgroundImage: NetworkImage('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200'),
                       ),
                       const SizedBox(width: 14),
-                      Expanded(
+                      const Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               'Sunil Verma',
                               style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
@@ -189,9 +189,9 @@ class LiveTrackingScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(14),
                       border: Border.all(color: AppColors.border),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text('Doorstep Delivery Code', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
                         Text('8492', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20, color: AppColors.primary, letterSpacing: 2)),
                       ],

@@ -196,8 +196,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
                         ),
-                        child: Row(
-                          children: const [
+                        child: const Row(
+                          children: [
                             Icon(Icons.layers_rounded, size: 14, color: AppColors.primary),
                             SizedBox(width: 4),
                             Text('All 95 Pages', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
@@ -311,8 +311,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           borderRadius: BorderRadius.circular(14),
                         ),
-                        child: Row(
-                          children: const [
+                        child: const Row(
+                          children: [
                             Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 16),
                             SizedBox(width: 6),
                             Text('Ask AI', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13)),
@@ -423,9 +423,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(color: const Color(0xFFFECACA)),
                           ),
-                          child: Column(
+                          child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text('CLEARANCE', style: TextStyle(color: Colors.red, fontWeight: FontWeight.w900, fontSize: 10)),
                               SizedBox(height: 4),
                               Text('Save up to -20%', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: AppColors.textPrimary)),
@@ -446,9 +446,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(color: const Color(0xFFFED7AA)),
                           ),
-                          child: Column(
+                          child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text('NEW USER', style: TextStyle(color: AppColors.accent, fontWeight: FontWeight.w900, fontSize: 10)),
                               SizedBox(height: 4),
                               Text('FIRST5 Coupon', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: AppColors.textPrimary)),

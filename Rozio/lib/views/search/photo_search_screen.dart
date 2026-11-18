@@ -64,7 +64,7 @@ class _PhotoSearchScreenState extends State<PhotoSearchScreen> with SingleTicker
                 ],
               ),
             ),
-            child: Center(
+            child: const Center(
               child: Opacity(
                 opacity: 0.15,
                 child: Icon(Icons.headphones_rounded, size: 220, color: Colors.white),
@@ -83,7 +83,7 @@ class _PhotoSearchScreenState extends State<PhotoSearchScreen> with SingleTicker
                 child: Container(
                   height: 2,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [
                         Colors.transparent,
                         AppColors.primary,

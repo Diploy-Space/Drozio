@@ -315,9 +315,9 @@ class _FlashDealScreenState extends State<FlashDealScreen> {
                           const SizedBox(height: 14),
 
                           // Urgency Claim Progress Bar
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Text(
                                 'Almost gone · 82% claimed',
                                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: AppColors.accent),
@@ -382,9 +382,9 @@ class _FlashDealScreenState extends State<FlashDealScreen> {
             const SizedBox(height: 24),
 
             // More Flash Deals List
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Text(
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
                 'More flash deals',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
               ),

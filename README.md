@@ -24,6 +24,7 @@
    - [User Application](#1-user-app-user-app)
    - [Vendor Application](#2-vendor-app-vendor-app)
    - [Admin & Web Backend](#3-admin-and-web-portal-admin-and-web)
+   - [Rozio Shoppable Video App](#4-rozio-shoppable-video-app-rozio)
 5. [Prerequisites & Requirements](#-prerequisites--requirements)
 6. [Getting Started & Installation](#-getting-started--installation)
    - [Backend Setup](#backend-setup-admin-and-web)
@@ -44,13 +45,16 @@ Drozio connects customers, merchants, delivery personnel, and administrators int
 flowchart TD
     subgraph Drozio Ecosystem
         UA["📱 User App (Flutter)<br/>• Retail & Wholesale Shopping<br/>• Real-time Live Auctions<br/>• AI Shopping Assistant<br/>• Offline SQLite Cache (Drift)"]
+        RZ["🛍️ Rozio App (Flutter)<br/>• 100 Figma Screens Implemented<br/>• Shoppable Video & Reels<br/>• 30-Min Hyperlocal Delivery<br/>• B2B Wholesale Tier Pricing"]
         VA["🏪 Vendor App (Flutter)<br/>• POS & Barcode Scanner<br/>• Bluetooth Thermal Printing<br/>• Inventory & Multi-language AI<br/>• Order Fulfillment Workflow"]
         API["⚙️ Backend & Admin (Laravel / PHP)<br/>• RESTful API v6 Engine<br/>• Central Management Dashboard<br/>• Payment & Shipping Gateways<br/>• Role-Based Access Control"]
     end
 
     UA <-->|REST API v6 / JWT Bearer| API
+    RZ <-->|REST API v6 / JWT Bearer| API
     VA <-->|REST API v6 / Vendor Token| API
     UA <-->|Real-time In-App Chat| VA
+    RZ <-->|Direct Merchant Chat| VA
 ```
 
 ---
@@ -137,6 +141,14 @@ Drozio/
 - **Role-based Access Control (RBAC):** Super Admin, Sub-admins, Vendors, Deliverymen, and Customer portals.
 - **Comprehensive Analytics:** Revenue statistics, order summaries, top-selling items, and transaction logs.
 - **RESTful API v6:** Comprehensive secure endpoints powering both mobile apps.
+
+### 4. Rozio Shoppable Video App (`Rozio/`)
+- **Figma Design Implementation:** 100 artboards implemented pixel-for-pixel from the master Figma design.
+- **Shoppable Video & Live Streaming:** Infinite vertical video feed with instant 1-tap checkout drawer (`Shop This Video`) and live stream shopping.
+- **Hyperlocal 30-Minute Delivery:** Pincode geofencing, serviceability checking, and live rider GPS map tracking with dynamic ETA countdown.
+- **B2B Wholesale & Factory Direct:** Tiered quantity pricing, volume discount sheet, and automated GST tax invoicing for input credits.
+- **Multi-Modal AI Discovery:** Conversational Rozio AI, camera visual search, speech-to-text voice search, and multi-facet filtering.
+- **Figma Screen Catalog:** Interactive 100-screen browser (`/catalog`) for direct testing and visual verification.
 
 ---
 

@@ -304,9 +304,9 @@ class _GiftCardScreenState extends State<GiftCardScreen> {
                     BoxShadow(color: AppColors.accent.withValues(alpha: 0.3), blurRadius: 12, offset: const Offset(0, 6)),
                   ],
                 ),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text('Rozio Gift Card', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18)),
                     SizedBox(height: 24),
                     Text('•••• •••• •••• ••••', style: TextStyle(color: Colors.white, letterSpacing: 3, fontSize: 16)),
@@ -345,8 +345,8 @@ class _GiftCardScreenState extends State<GiftCardScreen> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(color: const Color(0xFFECFDF5), borderRadius: BorderRadius.circular(12), border: Border.all(color: const Color(0xFFA7F3D0))),
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.check_circle_rounded, color: Color(0xFF10B981), size: 18),
                       SizedBox(width: 8),
                       Text('\$50 Gift card balance applied to order!', style: TextStyle(color: Color(0xFF065F46), fontWeight: FontWeight.bold, fontSize: 12)),
@@ -618,9 +618,9 @@ class PaymentFailedScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                   border: Border.all(color: AppColors.border),
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text('Amount to pay', style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
                     Text('\$54.00', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: AppColors.textPrimary)),
                   ],

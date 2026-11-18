@@ -43,8 +43,8 @@ class AddedToBagSheet extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           // Added confirmation
-          Row(
-            children: const [
+          const Row(
+            children: [
               Icon(Icons.check_circle_rounded, color: Color(0xFF10B981), size: 24),
               SizedBox(width: 8),
               Text('Added to your bag!', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.textPrimary)),

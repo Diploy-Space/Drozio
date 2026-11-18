@@ -134,9 +134,9 @@ class _PaymentProcessingScreenState extends State<PaymentProcessingScreen> {
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: AppColors.border),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
+                      children: [
                         Icon(Icons.info_outline_rounded, size: 16, color: AppColors.textMuted),
                         SizedBox(width: 8),
                         Text(

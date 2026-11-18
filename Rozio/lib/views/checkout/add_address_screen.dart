@@ -79,8 +79,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
               ),
-              child: Row(
-                children: const [
+              child: const Row(
+                children: [
                   Icon(Icons.my_location_rounded, color: AppColors.primary, size: 20),
                   SizedBox(width: 10),
                   Expanded(

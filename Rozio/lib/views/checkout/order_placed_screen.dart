@@ -77,9 +77,9 @@ class OrderPlacedScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
                 ),
-                child: Column(
+                child: const Column(
                   children: [
-                    const Text(
+                    Text(
                       'DELIVERY OTP CODE',
                       style: TextStyle(
                         fontSize: 11,
@@ -88,8 +88,8 @@ class OrderPlacedScreen extends StatelessWidget {
                         letterSpacing: 1,
                       ),
                     ),
-                    const SizedBox(height: 6),
-                    const Text(
+                    SizedBox(height: 6),
+                    Text(
                       '8 4 9 2',
                       style: TextStyle(
                         fontSize: 28,
@@ -98,8 +98,8 @@ class OrderPlacedScreen extends StatelessWidget {
                         letterSpacing: 6,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    const Text(
+                    SizedBox(height: 4),
+                    Text(
                       'Share this code with the courier partner upon delivery',
                       style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
                     ),
@@ -118,8 +118,8 @@ class OrderPlacedScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Icon(Icons.local_shipping_outlined, color: Color(0xFF10B981), size: 20),
                         SizedBox(width: 10),
                         Expanded(
@@ -157,8 +157,8 @@ class OrderPlacedScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: AppColors.border),
                 ),
-                child: Row(
-                  children: const [
+                child: const Row(
+                  children: [
                     Icon(Icons.chat_rounded, color: Color(0xFF10B981), size: 22),
                     SizedBox(width: 12),
                     Expanded(

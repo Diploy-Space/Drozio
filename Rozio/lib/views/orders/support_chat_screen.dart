@@ -107,7 +107,7 @@ class _SupportChatScreenState extends State<SupportChatScreen> {
           ),
           Container(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(top: BorderSide(color: AppColors.border)),
             ),

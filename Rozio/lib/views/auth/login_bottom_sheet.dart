@@ -132,16 +132,16 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
               const SizedBox(height: 16),
 
               // Perks List
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(Icons.check_circle_rounded, size: 16, color: Color(0xFF10B981)),
                   SizedBox(width: 8),
                   Text('Track orders in real time with map GPS', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
                 ],
               ),
               const SizedBox(height: 6),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(Icons.check_circle_rounded, size: 16, color: Color(0xFF10B981)),
                   SizedBox(width: 8),
                   Text('Unlock exclusive reel discounts & coins', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),

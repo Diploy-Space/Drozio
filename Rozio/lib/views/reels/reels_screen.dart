@@ -801,12 +801,12 @@ class PausedReelsScreen extends StatelessWidget {
               child: const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 44),
             ),
           ),
-          Positioned(
+          const Positioned(
             left: 20,
             bottom: 40,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text('Pro Wireless Earbuds ANC', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800)),
                 SizedBox(height: 4),
                 Text('Paused · Tap anywhere to resume playback', style: TextStyle(color: Colors.white70, fontSize: 13)),

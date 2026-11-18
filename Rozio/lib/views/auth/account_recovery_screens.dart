@@ -274,8 +274,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: const Color(0xFFFED7AA)),
                   ),
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.card_giftcard_rounded, color: AppColors.accent, size: 28),
                       SizedBox(width: 12),
                       Expanded(

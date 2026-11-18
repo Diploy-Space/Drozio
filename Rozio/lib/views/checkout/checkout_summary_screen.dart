@@ -80,7 +80,7 @@ class _CheckoutSummaryScreenState extends State<CheckoutSummaryScreen> {
           // Step Progress Bar
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.surfaceLight,
               border: Border(bottom: BorderSide(color: AppColors.border)),
             ),
@@ -195,9 +195,9 @@ class _CheckoutSummaryScreenState extends State<CheckoutSummaryScreen> {
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(color: !_isExpressDelivery ? AppColors.primary : AppColors.border),
                           ),
-                          child: Column(
+                          child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text('Standard', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
                               SizedBox(height: 2),
                               Text('FREE · 2 Days', style: TextStyle(fontSize: 11, color: Color(0xFF10B981), fontWeight: FontWeight.bold)),
@@ -217,9 +217,9 @@ class _CheckoutSummaryScreenState extends State<CheckoutSummaryScreen> {
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(color: _isExpressDelivery ? AppColors.primary : AppColors.border),
                           ),
-                          child: Column(
+                          child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text('🚀 Express', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
                               SizedBox(height: 2),
                               Text('+\$4 · Tomorrow 2 PM', style: TextStyle(fontSize: 11, color: AppColors.primary, fontWeight: FontWeight.bold)),
@@ -338,7 +338,7 @@ class _CheckoutSummaryScreenState extends State<CheckoutSummaryScreen> {
           // Bottom Continue to Payment CTA
           Container(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(top: BorderSide(color: AppColors.border)),
             ),

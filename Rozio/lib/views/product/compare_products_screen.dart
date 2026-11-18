@@ -161,8 +161,8 @@ class _CompareProductsScreenState extends State<CompareProductsScreen> {
                 ),
 
                 // Warranty row
-                TableRow(
-                  children: const [
+                const TableRow(
+                  children: [
                     Padding(padding: EdgeInsets.all(8), child: Center(child: Text('2 Years', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF10B981))))),
                     Padding(padding: EdgeInsets.all(8), child: Center(child: Text('1 Year', style: TextStyle(fontSize: 12)))),
                     Padding(padding: EdgeInsets.all(8), child: Center(child: Text('1 Year', style: TextStyle(fontSize: 12)))),
@@ -170,8 +170,8 @@ class _CompareProductsScreenState extends State<CompareProductsScreen> {
                 ),
 
                 // Delivery speed row
-                TableRow(
-                  children: const [
+                const TableRow(
+                  children: [
                     Padding(padding: EdgeInsets.all(8), child: Center(child: Text('Tomorrow', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF10B981))))),
                     Padding(padding: EdgeInsets.all(8), child: Center(child: Text('2 Days', style: TextStyle(fontSize: 12)))),
                     Padding(padding: EdgeInsets.all(8), child: Center(child: Text('3 Days', style: TextStyle(fontSize: 12)))),

@@ -62,7 +62,7 @@ class _CheckoutPaymentScreenState extends State<CheckoutPaymentScreen> {
           // Step Progress Bar
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.surfaceLight,
               border: Border(bottom: BorderSide(color: AppColors.border)),
             ),
@@ -188,7 +188,7 @@ class _CheckoutPaymentScreenState extends State<CheckoutPaymentScreen> {
           // Bottom Pay CTA
           Container(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(top: BorderSide(color: AppColors.border)),
             ),

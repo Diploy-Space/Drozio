@@ -60,9 +60,9 @@ class SizeGuideSheet extends StatelessWidget {
             Table(
               border: TableBorder.all(color: AppColors.border, borderRadius: BorderRadius.circular(8)),
               children: [
-                TableRow(
-                  decoration: const BoxDecoration(color: AppColors.surfaceLight),
-                  children: const [
+                const TableRow(
+                  decoration: BoxDecoration(color: AppColors.surfaceLight),
+                  children: [
                     Padding(padding: EdgeInsets.all(8), child: Text('Size', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                     Padding(padding: EdgeInsets.all(8), child: Text('Chest', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                     Padding(padding: EdgeInsets.all(8), child: Text('Length', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),

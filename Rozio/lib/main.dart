@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'core/constants/app_constants.dart';
+import 'core/routes/app_routes.dart';
 import 'core/theme/app_theme.dart';
+import 'core/widgets/responsive_layout.dart';
 import 'providers/cart_provider.dart';
 import 'providers/location_provider.dart';
 import 'providers/reel_provider.dart';
-import 'views/onboarding/splash_and_walkthrough_screens.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,10 +36,16 @@ class RozioApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Rozio',
+      title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const RozioSplashScreen(),
+      initialRoute: AppRoutes.splash,
+      onGenerateRoute: AppRoutes.onGenerateRoute,
+      builder: (context, child) {
+        return ResponsiveLayout(
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
     );
   }
 }

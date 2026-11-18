@@ -131,7 +131,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           // Left Rail: Departments
           Container(
             width: 100,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.surfaceLight,
               border: Border(right: BorderSide(color: AppColors.border)),
             ),
@@ -252,7 +252,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     children: types.map((type) => ActionChip(
                       label: Text(type),
                       backgroundColor: AppColors.surfaceLight,
-                      side: BorderSide(color: AppColors.border),
+                      side: const BorderSide(color: AppColors.border),
                       onPressed: () {
                         Navigator.push(
                           context,

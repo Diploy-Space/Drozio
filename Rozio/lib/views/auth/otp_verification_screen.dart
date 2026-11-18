@@ -140,7 +140,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         fillColor: AppColors.surfaceLight,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: AppColors.border),
+                          borderSide: const BorderSide(color: AppColors.border),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -193,8 +193,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         const SnackBar(content: Text('OTP sent to your WhatsApp number')),
                       );
                     },
-                    child: Row(
-                      children: const [
+                    child: const Row(
+                      children: [
                         Icon(Icons.chat_rounded, color: Color(0xFF10B981), size: 16),
                         SizedBox(width: 4),
                         Text(

@@ -148,10 +148,10 @@ class _FirstOrderExclusivesScreenState extends State<FirstOrderExclusivesScreen>
                     child: const Icon(Icons.confirmation_num_outlined, color: AppColors.accent, size: 24),
                   ),
                   const SizedBox(width: 14),
-                  Expanded(
+                  const Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'SAVE \$5 · FIRST5',
                           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.textPrimary),

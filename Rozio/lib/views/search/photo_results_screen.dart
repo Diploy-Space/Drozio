@@ -125,9 +125,9 @@ class _PhotoResultsScreenState extends State<PhotoResultsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Filter Tags Row ("Narrow it down")
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-              child: const Text(
+            const Padding(
+              padding: EdgeInsets.fromLTRB(16, 8, 16, 4),
+              child: Text(
                 'Narrow it down',
                 style: TextStyle(
                   fontSize: 13,
@@ -313,9 +313,9 @@ class _PhotoResultsScreenState extends State<PhotoResultsScreen> {
             const SizedBox(height: 24),
 
             // Visually Similar Products List
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Text(
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
                 'Visually similar products',
                 style: TextStyle(
                   fontSize: 16,

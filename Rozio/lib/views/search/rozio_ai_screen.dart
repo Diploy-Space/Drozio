@@ -190,8 +190,8 @@ class _RozioAiScreenState extends State<RozioAiScreen> {
             Container(
               width: 34,
               height: 34,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
                   colors: [AppColors.primary, Color(0xFF8B5CF6)],
                 ),
                 shape: BoxShape.circle,
@@ -391,9 +391,9 @@ class _RozioAiScreenState extends State<RozioAiScreen> {
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 16, left: 40),
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: AppColors.primary,
-                              borderRadius: const BorderRadius.only(
+                              borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(18),
                                 topRight: Radius.circular(18),
                                 bottomLeft: Radius.circular(18),
@@ -564,7 +564,7 @@ class _RozioAiScreenState extends State<RozioAiScreen> {
           // Bottom Input Field & Disclaimer
           Container(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(top: BorderSide(color: AppColors.border)),
             ),

@@ -110,7 +110,7 @@ class _RozioSplashScreenState extends State<RozioSplashScreen>
                           size: 13, color: Color(0xFF1D4ED8)),
                       SizedBox(width: 4),
                       Text(
-                        '95 Screens',
+                        '100 Screens',
                         style: TextStyle(
                           color: Color(0xFF1D4ED8),
                           fontSize: 11,

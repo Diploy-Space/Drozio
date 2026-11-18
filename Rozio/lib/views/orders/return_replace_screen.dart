@@ -52,8 +52,8 @@ class _ReturnReplaceScreenState extends State<ReturnReplaceScreen> {
                   color: const Color(0xFF10B981).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Row(
-                  children: const [
+                child: const Row(
+                  children: [
                     Icon(Icons.check_circle_rounded, color: Color(0xFF10B981), size: 28),
                     SizedBox(width: 14),
                     Expanded(
@@ -137,9 +137,9 @@ class _ReturnReplaceScreenState extends State<ReturnReplaceScreen> {
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(color: _actionType == 0 ? AppColors.primary : AppColors.border),
                       ),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text('Refund', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
                           SizedBox(height: 2),
                           Text('Direct to bank / UPI', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
@@ -159,9 +159,9 @@ class _ReturnReplaceScreenState extends State<ReturnReplaceScreen> {
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(color: _actionType == 1 ? AppColors.primary : AppColors.border),
                       ),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text('Replacement', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
                           SizedBox(height: 2),
                           Text('Same item exchange', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
@@ -206,9 +206,9 @@ class _ReturnReplaceScreenState extends State<ReturnReplaceScreen> {
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: AppColors.border),
               ),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text('Pickup Address', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
                   SizedBox(height: 2),
                   Text('Flat 402, Lotus Grand, Link Road, Andheri West, Mumbai 400053', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
@@ -295,8 +295,8 @@ class ReturnRequestedScreen extends StatelessWidget {
                 color: const Color(0xFF10B981).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: Row(
-                children: const [
+              child: const Row(
+                children: [
                   Icon(Icons.check_circle_rounded, color: Color(0xFF10B981), size: 28),
                   SizedBox(width: 14),
                   Expanded(

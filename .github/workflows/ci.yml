@@ -60,3 +60,28 @@ jobs:
       - name: Run Static Analysis on Vendor App
         working-directory: Vendor app
         run: dart analyze --fatal-infos
+
+  analyze-and-test-rozio:
+    name: Analyze & Test Rozio App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Rozio Dependencies
+        working-directory: Rozio
+        run: flutter pub get
+
+      - name: Run Static Analysis on Rozio
+        working-directory: Rozio
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Run Unit & Widget Tests on Rozio
+        working-directory: Rozio
+        run: flutter test

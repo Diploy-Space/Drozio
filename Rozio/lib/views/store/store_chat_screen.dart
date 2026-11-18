@@ -106,7 +106,7 @@ class _StoreChatScreenState extends State<StoreChatScreen> {
           if (widget.productContext != null)
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.surfaceLight,
                 border: Border(bottom: BorderSide(color: AppColors.border)),
               ),
@@ -187,7 +187,7 @@ class _StoreChatScreenState extends State<StoreChatScreen> {
           // Input Bar
           Container(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(top: BorderSide(color: AppColors.border)),
             ),

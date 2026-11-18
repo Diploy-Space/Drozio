@@ -68,9 +68,9 @@ class _CancelOrderScreenState extends State<CancelOrderScreen> {
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: AppColors.border),
                   ),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text('Refund Information', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
                       SizedBox(height: 6),
                       Text('Refund has been initiated to your original payment method. Amount will reflect in your account within 2-4 business days.', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
@@ -226,9 +226,9 @@ class OrderCancelledScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: AppColors.border),
                 ),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text('Refund Information', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
                     SizedBox(height: 6),
                     Text(

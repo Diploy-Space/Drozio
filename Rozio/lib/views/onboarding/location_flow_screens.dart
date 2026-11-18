@@ -214,16 +214,16 @@ class LocationFoundScreen extends StatelessWidget {
               const Text('Flat 12B, Sea View Apartments, Link Road, Mumbai 400053', style: TextStyle(fontSize: 14, color: AppColors.textSecondary, height: 1.3)),
               const SizedBox(height: 20),
               // Perks
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(Icons.check_circle_rounded, color: Color(0xFF10B981), size: 16),
                   SizedBox(width: 8),
                   Text('Delivery by Thu, Oct 29', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
                 ],
               ),
               const SizedBox(height: 8),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(Icons.check_circle_rounded, color: Color(0xFF10B981), size: 16),
                   SizedBox(width: 8),
                   Text('Cash on delivery available', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),

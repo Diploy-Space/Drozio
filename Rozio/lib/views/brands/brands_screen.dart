@@ -51,9 +51,9 @@ class _BrandsScreenState extends State<BrandsScreen> {
           icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textPrimary, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Column(
+        title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text('Brands', style: TextStyle(color: AppColors.textPrimary, fontSize: 18, fontWeight: FontWeight.w800)),
             Text('Official brand stores on Rozio', style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
           ],

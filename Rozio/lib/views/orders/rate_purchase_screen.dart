@@ -95,9 +95,9 @@ class _RatePurchaseScreenState extends State<RatePurchaseScreen> {
             const SizedBox(height: 24),
 
             // Quick Tags
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
-              child: const Text('What did you like the most?', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+              child: Text('What did you like the most?', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
             ),
             const SizedBox(height: 10),
             Wrap(
@@ -125,9 +125,9 @@ class _RatePurchaseScreenState extends State<RatePurchaseScreen> {
             const SizedBox(height: 24),
 
             // Text Review input
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
-              child: const Text('Write your review (Optional)', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+              child: Text('Write your review (Optional)', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
             ),
             const SizedBox(height: 8),
             Container(

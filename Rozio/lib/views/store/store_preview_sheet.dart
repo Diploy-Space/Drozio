@@ -69,9 +69,9 @@ class _StorePreviewSheetState extends State<StorePreviewSheet> {
             const SizedBox(height: 16),
 
             // Badges
-            Wrap(
+            const Wrap(
               spacing: 8,
-              children: const [
+              children: [
                 Chip(
                   label: Text('Ships in 24 hours', style: TextStyle(fontSize: 11)),
                   backgroundColor: AppColors.surfaceLight,
