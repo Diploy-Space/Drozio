@@ -16,7 +16,7 @@ void main() {
     );
 
     setUp(() {
-      cartProvider = CartProvider();
+      cartProvider = CartProvider(initialItems: []);
     });
 
     test('Initial cart is empty', () {

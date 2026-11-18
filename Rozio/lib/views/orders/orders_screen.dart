@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
+import '../../data/mock/demo_data.dart';
 import 'order_details_screen.dart';
 
 class OrdersScreen extends StatelessWidget {
@@ -21,35 +22,25 @@ class OrdersScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
+      body: ListView.separated(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
         physics: const BouncingScrollPhysics(),
-        children: [
-          _buildOrderCard(
+        itemCount: DemoData.demoOrders.length,
+        separatorBuilder: (_, _) => const SizedBox(height: 12),
+        itemBuilder: (context, index) {
+          final order = DemoData.demoOrders[index];
+          return _buildOrderCard(
             context,
-            id: 'RZ-83921',
-            date: 'Today, 2:45 PM',
-            title: 'Pro Wireless Earbuds ANC',
-            store: 'Glow Audio',
-            price: 59,
-            status: 'Out for delivery · Arriving by 2 PM',
-            statusColor: const Color(0xFF16A34A),
-            imageUrl: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400',
-          ),
-          const SizedBox(height: 12),
-          _buildOrderCard(
-            context,
-            id: 'RZ-77120',
-            date: 'Oct 24, 2026',
-            title: 'Nova AMOLED Smartwatch',
-            store: 'Urban Tech Co',
-            price: 89,
-            status: 'Delivered',
-            statusColor: AppColors.textSecondary,
-            imageUrl: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400',
-          ),
-          const SizedBox(height: 100),
-        ],
+            id: order['id'] as String,
+            date: order['date'] as String,
+            title: order['title'] as String,
+            store: order['store'] as String,
+            price: order['price'] as double,
+            status: order['status'] as String,
+            statusColor: Color(order['statusColor'] as int),
+            imageUrl: order['imageUrl'] as String,
+          );
+        },
       ),
     );
   }
@@ -69,58 +60,110 @@ class OrdersScreen extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => OrderDetailsScreen(orderId: id)),
+          MaterialPageRoute(
+            builder: (_) => OrderDetailsScreen(orderId: id),
+          ),
         );
       },
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(16),
           border: Border.all(color: AppColors.border),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.02),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Top row: ID and Date
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Order #$id', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: AppColors.textSecondary)),
-                Text(date, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                Text(
+                  'Order $id',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  date,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
               ],
             ),
-            const Divider(height: 20, thickness: 0.8),
+            const Divider(height: 18, color: AppColors.border),
+            // Middle: Image & details
             Row(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.network(imageUrl, width: 64, height: 64, fit: BoxFit.cover),
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    imageUrl,
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, _, _) => Container(
+                      width: 60,
+                      height: 60,
+                      color: AppColors.surfaceMuted,
+                      child: const Icon(Icons.shopping_bag, color: AppColors.textMuted),
+                    ),
+                  ),
                 ),
-                const SizedBox(width: 14),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(store, style: const TextStyle(fontSize: 11, color: AppColors.textMuted, fontWeight: FontWeight.w600)),
-                      Text(title, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+                      Text(
+                        title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        store,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('\$${price.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15)),
+                      Text(
+                        '₹${price.toStringAsFixed(0)}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primary,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textMuted),
+                const Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
+            // Status chip
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               decoration: BoxDecoration(
                 color: statusColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
@@ -128,9 +171,23 @@ class OrdersScreen extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.local_shipping_outlined, size: 14, color: statusColor),
+                  Container(
+                    width: 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: statusColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                   const SizedBox(width: 6),
-                  Text(status, style: TextStyle(color: statusColor, fontSize: 12, fontWeight: FontWeight.w700)),
+                  Text(
+                    status,
+                    style: TextStyle(
+                      color: statusColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                    ),
+                  ),
                 ],
               ),
             ),

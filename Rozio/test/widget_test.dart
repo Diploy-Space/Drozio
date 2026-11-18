@@ -25,8 +25,7 @@ void main() {
       ),
     );
 
-    // Verify Rozio splash screen renders
+    // Verify Rozio splash screen renders cleanly
     expect(find.text('Rozio'), findsWidgets);
-    expect(find.text('100 Screens'), findsOneWidget);
   });
 }

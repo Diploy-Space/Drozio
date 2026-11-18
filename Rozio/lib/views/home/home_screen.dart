@@ -5,7 +5,6 @@ import '../../core/theme/app_colors.dart';
 import '../../data/models/product_model.dart';
 import '../../providers/cart_provider.dart';
 import '../../providers/location_provider.dart';
-import '../catalog/figma_screen_catalog.dart';
 import '../categories/categories_screen.dart';
 import '../deals/clearance_sale_screen.dart';
 import '../deals/featured_products_screen.dart';
@@ -113,26 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: const Color(0xFF1E293B),
-        elevation: 6,
-        icon: const Icon(Icons.auto_awesome_mosaic_rounded, color: Colors.amber, size: 20),
-        label: const Text(
-          'Figma Screens (95)',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const FigmaScreenCatalogScreen()),
-          );
-        },
-      ),
       body: SafeArea(
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            // Top App Bar: Brand, Location & Figma Navigator Button
+            // Top App Bar: Brand, Location & Notifications
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
@@ -175,32 +159,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: AppColors.textSecondary),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    // Quick Figma Catalog Pill
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const FigmaScreenCatalogScreen()),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                        margin: const EdgeInsets.only(right: 8),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
-                        ),
-                        child: const Row(
-                          children: [
-                            Icon(Icons.layers_rounded, size: 14, color: AppColors.primary),
-                            SizedBox(width: 4),
-                            Text('All 95 Pages', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                           ],
                         ),
                       ),

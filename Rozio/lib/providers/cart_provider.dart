@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import '../data/mock/demo_data.dart';
 import '../data/models/cart_item_model.dart';
 import '../data/models/product_model.dart';
 
 class CartProvider extends ChangeNotifier {
-  final List<CartItemModel> _items = [];
+  final List<CartItemModel> _items;
+
+  CartProvider({List<CartItemModel>? initialItems})
+      : _items = initialItems ?? List.from(DemoData.initialCartItems);
 
   List<CartItemModel> get items => List.unmodifiable(_items);
 

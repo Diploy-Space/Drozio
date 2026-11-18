@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../auth/login_bottom_sheet.dart';
-import '../catalog/figma_screen_catalog.dart';
 import 'language_selection_screen.dart';
 
 /// Artboard ID 119:14531 - Main Brand Splash Screen ('Background')
@@ -82,47 +81,6 @@ class _RozioSplashScreenState extends State<RozioSplashScreen>
       body: SafeArea(
         child: Stack(
           children: [
-            // Developer quick access pill (top right)
-            Positioned(
-              top: 14,
-              right: 18,
-              child: GestureDetector(
-                onTap: () {
-                  _navTimer?.cancel();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const FigmaScreenCatalogScreen()),
-                  );
-                },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF1F5F9),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFFE2E8F0)),
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.dashboard_customize_rounded,
-                          size: 13, color: Color(0xFF1D4ED8)),
-                      SizedBox(width: 4),
-                      Text(
-                        '100 Screens',
-                        style: TextStyle(
-                          color: Color(0xFF1D4ED8),
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
             // Center: Rozio. logo
             Center(
               child: InkWell(
@@ -348,40 +306,6 @@ class _RozioOnboardingWalkthroughScreenState
                     ],
                   ),
                   const Spacer(),
-                  // Quick catalog developer button
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const FigmaScreenCatalogScreen()),
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFEFF6FF),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFDBEAFE)),
-                      ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.dashboard_customize_rounded,
-                              size: 11, color: Color(0xFF1D4ED8)),
-                          SizedBox(width: 3),
-                          Text(
-                            '95 Screens',
-                            style: TextStyle(
-                              color: Color(0xFF1D4ED8),
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
                   // Skip button
                   GestureDetector(
                     onTap: _finishWalkthrough,
